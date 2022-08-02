@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
       "projectName": "RentalCarFinalProject.Core",
-      "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
+      "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\obj\\",
+      "outputPath": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

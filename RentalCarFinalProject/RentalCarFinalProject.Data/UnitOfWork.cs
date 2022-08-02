@@ -11,6 +11,7 @@ namespace RentalCarFinalProject.Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly BrandRepository brandRepository; 
+        private readonly CategoryRepository categoryRepository;
         private readonly AppDbContext _context;
 
         public UnitOfWork(AppDbContext context)
@@ -19,6 +20,9 @@ namespace RentalCarFinalProject.Data
         }
 
         public IBrandRepository BrandRepository => brandRepository != null ? brandRepository : new BrandRepository(_context);
+
+        public ICategoryRepository CategoryRepository => categoryRepository!=null ? categoryRepository : new CategoryRepository(_context);
+
         public async Task<int> CommitAsync()
         {
             return await _context.SaveChangesAsync();

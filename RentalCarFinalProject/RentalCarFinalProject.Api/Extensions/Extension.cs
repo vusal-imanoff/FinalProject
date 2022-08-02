@@ -16,13 +16,11 @@ namespace RentalCarFinalProject.Api.Extensions
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         public static void ExceptionHandler(this IApplicationBuilder app)
         {
-
-
-
             app.UseExceptionHandler(
                 error =>
                 {

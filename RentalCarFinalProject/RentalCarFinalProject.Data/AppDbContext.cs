@@ -16,6 +16,7 @@ namespace RentalCarFinalProject.Data
         }
 
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

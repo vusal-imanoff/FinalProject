@@ -66,7 +66,7 @@ namespace RentalCarFinalProject.Service.Implementations
             return brandListDTO;
         }
 
-        public async Task<BrandGetDTO> GetByIdAsync(int? id)
+        public async Task<BrandGetDTO>  GetByIdAsync(int? id)
         {
             BrandGetDTO brandGet = _mapper.Map<BrandGetDTO>(await _unitOfWork.BrandRepository.GetAsync(b => b.Id == id));
          
@@ -77,7 +77,7 @@ namespace RentalCarFinalProject.Service.Implementations
         {
             if (await _unitOfWork.BrandRepository.IsExistsAsync(b => b.Name == brandPostDTO.Name))
             {
-                throw new AlreadyExistsException($"Category {brandPostDTO.Name} Already Exist.");
+                throw new AlreadyExistsException($"{brandPostDTO.Name} Brand Already Exist.");
             }
 
             if (brandPostDTO.File != null)
@@ -162,6 +162,6 @@ namespace RentalCarFinalProject.Service.Implementations
 
         }
 
-
+       
     }
 }

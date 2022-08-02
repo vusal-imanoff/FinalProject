@@ -15,11 +15,9 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
     public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
-        private readonly IWebHostEnvironment _env;
-        public BrandsController(IBrandService brandService, IWebHostEnvironment env)
+        public BrandsController(IBrandService brandService)
         {
             _brandService = brandService;
-            _env = env;
         }
 
         [HttpPost]

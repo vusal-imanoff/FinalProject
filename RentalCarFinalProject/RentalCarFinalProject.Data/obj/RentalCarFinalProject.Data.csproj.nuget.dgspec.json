@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj": {}
+    "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj": {
+    "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
         "projectName": "RentalCarFinalProject.Core",
-        "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
+        "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\obj\\",
+        "outputPath": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj": {
+    "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj",
         "projectName": "RentalCarFinalProject.Data",
-        "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj",
+        "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\RentalCarFinalProject.Data.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\obj\\",
+        "outputPath": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -90,8 +90,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj": {
-                "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj"
+              "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj": {
+                "projectPath": "C:\\Users\\user\\Documents\\FinalProject\\FinalProject\\RentalCarFinalProject\\RentalCarFinalProject.Core\\RentalCarFinalProject.Core.csproj"
               }
             }
           }

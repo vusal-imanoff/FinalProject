@@ -9,6 +9,7 @@ namespace RentalCarFinalProject.Core
     public interface IUnitOfWork
     {
         IBrandRepository BrandRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
         Task<int> CommitAsync();
         int Commit();
     }
