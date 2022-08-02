@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RentalCarFinalProject.Core\RentalCarFinalProject.Core.csproj" />
   </ItemGroup>
 

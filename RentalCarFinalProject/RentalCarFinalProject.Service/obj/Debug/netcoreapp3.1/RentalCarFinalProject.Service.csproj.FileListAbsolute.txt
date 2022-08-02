@@ -1,0 +1,13 @@
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\bin\Debug\netcoreapp3.1\RentalCarFinalProject.Service.deps.json
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\bin\Debug\netcoreapp3.1\RentalCarFinalProject.Service.dll
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\bin\Debug\netcoreapp3.1\RentalCarFinalProject.Service.pdb
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\bin\Debug\netcoreapp3.1\RentalCarFinalProject.Core.dll
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\bin\Debug\netcoreapp3.1\RentalCarFinalProject.Core.pdb
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.csproj.AssemblyReference.cache
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.AssemblyInfoInputs.cache
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.AssemblyInfo.cs
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.csproj.CopyComplete
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.dll
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Service\obj\Debug\netcoreapp3.1\RentalCarFinalProject.Service.pdb

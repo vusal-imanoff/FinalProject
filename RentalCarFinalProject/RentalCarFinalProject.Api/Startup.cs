@@ -39,6 +39,7 @@ namespace RentalCarFinalProject.Api
             {
                 options.AddProfile(new MappingProfile());
             });
+          
 
             services.AddScoppedService();
         }
@@ -51,9 +52,15 @@ namespace RentalCarFinalProject.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ExceptionHandler();
+
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseStaticFiles();
+
+            //app.UseSession();
+
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
