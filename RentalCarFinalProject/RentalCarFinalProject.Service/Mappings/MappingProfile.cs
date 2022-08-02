@@ -2,6 +2,7 @@
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.BrandDTOs;
 using RentalCarFinalProject.Service.DTOs.CategoryDTOs;
+using RentalCarFinalProject.Service.DTOs.ColorDTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,6 @@ namespace RentalCarFinalProject.Service.Mappings
         #region Brand
             CreateMap<BrandPostDTO, Brand>()
                 .ForMember(des => des.CreatedAt, src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
-
             CreateMap<Brand, BrandListDTO>();
             CreateMap<Brand, BrandGetDTO>();
             #endregion
@@ -25,7 +25,13 @@ namespace RentalCarFinalProject.Service.Mappings
                 .ForMember(des=>des.CreatedAt, src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
             CreateMap<Category, CategoryListDTO>();
             CreateMap<Category, CategoryGetDTO>();
-        #endregion
+            #endregion
+            #region Color
+            CreateMap<ColorPostDTO,Color>()
+                .ForMember(des=>des.CreatedAt,src=>src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
+            CreateMap<Color,ColorGetDTO>();
+            CreateMap<Color,ColorListDTO>();
+            #endregion
         }
 
 

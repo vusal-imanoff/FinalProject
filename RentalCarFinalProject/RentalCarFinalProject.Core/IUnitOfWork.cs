@@ -10,6 +10,7 @@ namespace RentalCarFinalProject.Core
     {
         IBrandRepository BrandRepository { get; }
         ICategoryRepository CategoryRepository { get; }
+        IColorRepository ColorRepository { get; }
         Task<int> CommitAsync();
         int Commit();
     }

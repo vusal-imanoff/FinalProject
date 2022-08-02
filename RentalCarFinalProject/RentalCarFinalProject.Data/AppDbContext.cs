@@ -8,8 +8,8 @@ namespace RentalCarFinalProject.Data
 {
     public class AppDbContext:DbContext
     {
-        //dotnet ef --startup-project ..\P225NLayerArchitectura.Api migrations add InitialCreate
-        //dotnet ef --startup-project ..\P225NLayerArchitectura.Api update database
+        //dotnet ef --startup-project ..\RentalCarFinalProject.Api migrations add InitialCreate
+        //dotnet ef --startup-project ..\RentalCarFinalProject.Api update database
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -17,6 +17,7 @@ namespace RentalCarFinalProject.Data
 
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Color> Colors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

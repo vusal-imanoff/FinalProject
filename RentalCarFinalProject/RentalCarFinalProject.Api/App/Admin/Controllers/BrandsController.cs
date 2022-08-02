@@ -15,7 +15,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
     public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
-        public BrandsController(IBrandService brandService)
+        public BrandsController(IBrandService brandService  )
         {
             _brandService = brandService;
         }

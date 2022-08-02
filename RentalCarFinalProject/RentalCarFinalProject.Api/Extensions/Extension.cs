@@ -17,6 +17,7 @@ namespace RentalCarFinalProject.Api.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IColorService, ColorService>();
         }
 
         public static void ExceptionHandler(this IApplicationBuilder app)

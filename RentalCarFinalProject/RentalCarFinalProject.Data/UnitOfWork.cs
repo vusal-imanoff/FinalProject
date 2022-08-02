@@ -12,6 +12,7 @@ namespace RentalCarFinalProject.Data
     {
         private readonly BrandRepository brandRepository; 
         private readonly CategoryRepository categoryRepository;
+        private readonly ColorRepository colorRepository;
         private readonly AppDbContext _context;
 
         public UnitOfWork(AppDbContext context)
@@ -22,6 +23,7 @@ namespace RentalCarFinalProject.Data
         public IBrandRepository BrandRepository => brandRepository != null ? brandRepository : new BrandRepository(_context);
 
         public ICategoryRepository CategoryRepository => categoryRepository!=null ? categoryRepository : new CategoryRepository(_context);
+        public IColorRepository ColorRepository => colorRepository!=null ? colorRepository : new ColorRepository(_context);
 
         public async Task<int> CommitAsync()
         {
