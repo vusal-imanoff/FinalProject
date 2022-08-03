@@ -13,6 +13,10 @@ namespace RentalCarFinalProject.Data
         private readonly BrandRepository brandRepository; 
         private readonly CategoryRepository categoryRepository;
         private readonly ColorRepository colorRepository;
+        private readonly FuelRepository fuelRepository;
+        private readonly YearRepository yearRepository;
+        private readonly EngineRepository engineRepository;
+        private readonly TransmissionRepository transmissionRepository;
         private readonly AppDbContext _context;
 
         public UnitOfWork(AppDbContext context)
@@ -24,6 +28,10 @@ namespace RentalCarFinalProject.Data
 
         public ICategoryRepository CategoryRepository => categoryRepository!=null ? categoryRepository : new CategoryRepository(_context);
         public IColorRepository ColorRepository => colorRepository!=null ? colorRepository : new ColorRepository(_context);
+        public IFuelRepository FuelRepository => fuelRepository!=null ? fuelRepository : new FuelRepository(_context);
+        public IYearRepository YearRepository => yearRepository!=null ? yearRepository : new YearRepository(_context);
+        public IEngineRepository EngineRepository => engineRepository!=null ? engineRepository : new EngineRepository(_context);
+        public ITransmissionRepository TransmissionRepository => transmissionRepository!=null ? transmissionRepository : new TransmissionRepository(_context);
 
         public async Task<int> CommitAsync()
         {
