@@ -22,6 +22,9 @@ namespace RentalCarFinalProject.Data
         public DbSet<Year> Years { get; set; }
         public DbSet<Engine> Engines { get; set; }
         public DbSet<Transmission> Transmissions { get; set; }
+        public DbSet<Model> Models { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

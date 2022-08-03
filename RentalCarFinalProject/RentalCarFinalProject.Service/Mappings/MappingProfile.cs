@@ -5,6 +5,7 @@ using RentalCarFinalProject.Service.DTOs.CategoryDTOs;
 using RentalCarFinalProject.Service.DTOs.ColorDTOs;
 using RentalCarFinalProject.Service.DTOs.EngineDTOs;
 using RentalCarFinalProject.Service.DTOs.FuelDTOs;
+using RentalCarFinalProject.Service.DTOs.ModelDTOs;
 using RentalCarFinalProject.Service.DTOs.TransmissionDTOs;
 using RentalCarFinalProject.Service.DTOs.YearDTOs;
 using System;
@@ -58,6 +59,12 @@ namespace RentalCarFinalProject.Service.Mappings
                 .ForMember(des=>des.CreatedAt,src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
             CreateMap<Transmission, TransmissionListDTO>();
             CreateMap<Transmission, TransmissionGetDTO>();
+            #endregion
+            #region Model
+            CreateMap<ModelPostDTO,Model>()
+                .ForMember(des=>des.CreatedAt,src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
+            CreateMap<Model,ModelListDTO>();
+            CreateMap<Model, ModelGetDTO>();
             #endregion
         }
     }

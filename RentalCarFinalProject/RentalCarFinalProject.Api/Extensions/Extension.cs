@@ -22,6 +22,7 @@ namespace RentalCarFinalProject.Api.Extensions
             services.AddScoped<IYearService, YearService>();
             services.AddScoped<IEngineService, EngineService>();
             services.AddScoped<ITransmissionService,TransmissionService>();
+            services.AddScoped<IModelService, ModelService>();
         }
 
         public static void ExceptionHandler(this IApplicationBuilder app)

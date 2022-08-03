@@ -8,6 +8,7 @@ namespace RentalCarFinalProject.Core.Entities
     {
         public string Name { get; set; }
         public string Image { get; set; }
+        public List<Model> Models { get; set; }
 
     }
 }

@@ -167,6 +167,40 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.ToTable("Fuels");
                 });
 
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Model", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.ToTable("Models");
+                });
+
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Transmission", b =>
                 {
                     b.Property<int>("Id")
@@ -221,6 +255,15 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Years");
+                });
+
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Model", b =>
+                {
+                    b.HasOne("RentalCarFinalProject.Core.Entities.Brand", "Brand")
+                        .WithMany("Models")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
