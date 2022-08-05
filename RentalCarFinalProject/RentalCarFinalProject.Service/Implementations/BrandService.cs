@@ -82,15 +82,6 @@ namespace RentalCarFinalProject.Service.Implementations
 
             if (brandPostDTO.File != null)
             {
-                if (brandPostDTO.File.CheckFileContextType("image/jpeg"))
-                {
-                    throw new BadRequestException("Please Select Correct Image Type. Example Jpeg or Jpg");
-                }
-
-                if (brandPostDTO.File.CheckFileSize(50))
-                {
-                    throw new BadRequestException("Please Select Coorect Image Size. Maximum 50 KB");
-                }
 
                 brandPostDTO.Image = await brandPostDTO.File.CreateFileAsync(_env, "uploads");
 
@@ -122,25 +113,9 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new AlreadyExistsException($"{brandPutDTO.Name} Brand Already Exist.");
             }
-            //if (brandPutDTO.Name == brand.Name)
-            //{
-            //    throw new AlreadyExistsException($"{brandPutDTO.Name} Brand Already Exist.");
-            //}
-
-            
 
             if (brandPutDTO.File != null)
             {
-                if (brandPutDTO.File.CheckFileContextType("image/jpeg"))
-                {
-                    throw new BadRequestException("Please Select Correct Image Type. Example Jpeg or Jpg");
-                }
-
-                if (brandPutDTO.File.CheckFileSize(50))
-                {
-                    throw new BadRequestException("Please Select Coorect Image Size. Maximum 50 KB");
-                }
-
                 if (brand.Image != null)
                 {
                     string fullpath = Path.Combine(_env.WebRootPath, "uploads", brand.Image);

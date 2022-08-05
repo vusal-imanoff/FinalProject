@@ -7,6 +7,8 @@ using RentalCarFinalProject.Data;
 using RentalCarFinalProject.Service.Exceptions;
 using RentalCarFinalProject.Service.Implementations;
 using RentalCarFinalProject.Service.Interfaces;
+using RentalCarFinalProject.Service.JWTManager.Interfaces;
+using RentalCarFinalProject.Service.JWTManager.Services;
 
 namespace RentalCarFinalProject.Api.Extensions
 {
@@ -23,6 +25,11 @@ namespace RentalCarFinalProject.Api.Extensions
             services.AddScoped<IEngineService, EngineService>();
             services.AddScoped<ITransmissionService,TransmissionService>();
             services.AddScoped<IModelService, ModelService>();
+            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IAppUserService, AppUserService>();
+
+
+            services.AddScoped<IJwtManager, JwtManager>();
         }
 
         public static void ExceptionHandler(this IApplicationBuilder app)

@@ -18,6 +18,48 @@
           "RentalCarFinalProject.Data.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.27": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "3.1.27.0",
+            "fileVersion": "3.100.2722.31611"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.Internal/3.1.27": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll": {
+            "assemblyVersion": "3.1.27.0",
+            "fileVersion": "3.100.2722.31611"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.27": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "3.1.27"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
+            "assemblyVersion": "3.1.27.0",
+            "fileVersion": "3.100.2722.31611"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/3.1.27": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "3.1.27",
+          "Microsoft.Extensions.Identity.Stores": "3.1.27"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
+            "assemblyVersion": "3.1.27.0",
+            "fileVersion": "3.100.2722.31611"
+          }
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -211,6 +253,32 @@
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "assemblyVersion": "3.1.27.0",
             "fileVersion": "3.100.2722.31601"
+          }
+        }
+      },
+      "Microsoft.Extensions.Identity.Core/3.1.27": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "3.1.27",
+          "Microsoft.Extensions.Logging": "3.1.27",
+          "Microsoft.Extensions.Options": "3.1.27"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Identity.Core.dll": {
+            "assemblyVersion": "3.1.27.0",
+            "fileVersion": "3.100.2722.31611"
+          }
+        }
+      },
+      "Microsoft.Extensions.Identity.Stores/3.1.27": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "3.1.27",
+          "Microsoft.Extensions.Identity.Core": "3.1.27",
+          "Microsoft.Extensions.Logging": "3.1.27"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Identity.Stores.dll": {
+            "assemblyVersion": "3.1.27.0",
+            "fileVersion": "3.100.2722.31611"
           }
         }
       },
@@ -894,12 +962,6 @@
       "System.Security.Permissions/4.5.0": {
         "dependencies": {
           "System.Security.AccessControl": "4.5.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Security.Permissions.dll": {
-            "assemblyVersion": "4.0.1.0",
-            "fileVersion": "4.6.26515.6"
-          }
         }
       },
       "System.Security.Principal.Windows/4.5.0": {
@@ -1036,6 +1098,10 @@
         }
       },
       "RentalCarFinalProject.Core/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.27",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.27"
+        },
         "runtime": {
           "RentalCarFinalProject.Core.dll": {}
         }
@@ -1047,6 +1113,34 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tzGz0XTRX736TbhO0lzCPyKgf+M/mYLYskk31xA3i20+3B4V8IqA3ogil88sWcjLAqIJyqNBsV76wdHPBVJP8A==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/3.1.27",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.3.1.27.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.Internal/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0cUCH/E+tceVmPjRsAUGKzyoM3tPq1IUaw3iKsxlfFZLmY0EhlalWUsDalcRq8crGAlKa4YbtbOIgOgh/h54TQ==",
+      "path": "microsoft.aspnetcore.cryptography.internal/3.1.27",
+      "hashPath": "microsoft.aspnetcore.cryptography.internal.3.1.27.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V6OBxMQPk8hE59UbeFXIkNLUGk4XX/4/IqOdrjXWoSZeGf9KeCIkBQnc+vvm95rfaH+jL/Q8CUyOa9NNQ/WYIA==",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/3.1.27",
+      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.3.1.27.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OihtgAulHNJR5YjJDXzU/OrsAjKqw3wdnq7/9tbH8iURJfVC2424Ymk3NcaaTgqFrBe6z1GPH/gclpLzb5RyWw==",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/3.1.27",
+      "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.3.1.27.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",
@@ -1173,6 +1267,20 @@
       "sha512": "sha512-LpfjoAuQFVbSMo5XhpXpEyQ6T0xD3wrcOcQqbyEXETbiMZNTQcbR7qyX5Nzb8cU9GFd1LLzz29kE6JB18MvoSg==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/3.1.27",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.3.1.27.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Identity.Core/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QclTpOPu8MTcg71CxNGt/+5hxICG9Lk7MBju04UTg8TiQ2lbk4QZN+oofl3VGAMOPfAWU83wsVDG4pi5w/ZfYw==",
+      "path": "microsoft.extensions.identity.core/3.1.27",
+      "hashPath": "microsoft.extensions.identity.core.3.1.27.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Identity.Stores/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ob0tQEG7H8Anym7g2Gnohqbls6it9kO7LKRZlMn6tnAwSN/FU/ahJ4NM++8n9Fju0HoaU8Hhr5Ct2Z+BBbelbA==",
+      "path": "microsoft.extensions.identity.stores/3.1.27",
+      "hashPath": "microsoft.extensions.identity.stores.3.1.27.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging/3.1.27": {
       "type": "package",

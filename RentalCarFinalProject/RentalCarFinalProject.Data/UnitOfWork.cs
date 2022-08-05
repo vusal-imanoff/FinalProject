@@ -18,6 +18,8 @@ namespace RentalCarFinalProject.Data
         private readonly EngineRepository engineRepository;
         private readonly TransmissionRepository transmissionRepository;
         private readonly ModelRepository modelRepository;
+        private readonly CarRepository carRepository;
+
         private readonly AppDbContext _context;
 
         public UnitOfWork(AppDbContext context)
@@ -34,6 +36,7 @@ namespace RentalCarFinalProject.Data
         public IEngineRepository EngineRepository => engineRepository!=null ? engineRepository : new EngineRepository(_context);
         public ITransmissionRepository TransmissionRepository => transmissionRepository!=null ? transmissionRepository : new TransmissionRepository(_context);
         public IModelRepository ModelRepository => modelRepository!=null ? modelRepository : new ModelRepository(_context);
+        public ICarRepository CarRepository => carRepository!=null ? carRepository : new CarRepository(_context);
 
         public async Task<int> CommitAsync()
         {

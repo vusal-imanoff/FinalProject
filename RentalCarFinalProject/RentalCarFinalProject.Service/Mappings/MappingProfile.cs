@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using RentalCarFinalProject.Core.Entities;
+using RentalCarFinalProject.Service.DTOs.AppUserDTOs;
 using RentalCarFinalProject.Service.DTOs.BrandDTOs;
+using RentalCarFinalProject.Service.DTOs.CarDTOs;
 using RentalCarFinalProject.Service.DTOs.CategoryDTOs;
 using RentalCarFinalProject.Service.DTOs.ColorDTOs;
 using RentalCarFinalProject.Service.DTOs.EngineDTOs;
@@ -65,6 +67,16 @@ namespace RentalCarFinalProject.Service.Mappings
                 .ForMember(des=>des.CreatedAt,src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
             CreateMap<Model,ModelListDTO>();
             CreateMap<Model, ModelGetDTO>();
+            #endregion
+            #region Car
+            CreateMap<CarPostDTO, Car>()
+                .ForMember(des=>des.CreatedAt,src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
+            CreateMap<Car, CarListDTO>();
+            CreateMap<Car, CarGetDTO>();
+            #endregion
+            #region AppUser
+            CreateMap<RegisterDTO, AppUser>();
+            CreateMap<AppUser, UserGetDTO>();
             #endregion
         }
     }

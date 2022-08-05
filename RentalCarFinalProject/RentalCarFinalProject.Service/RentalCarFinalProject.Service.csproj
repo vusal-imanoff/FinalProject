@@ -10,15 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RentalCarFinalProject.Core\RentalCarFinalProject.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="JWTManager\" />
   </ItemGroup>
 
 </Project>
