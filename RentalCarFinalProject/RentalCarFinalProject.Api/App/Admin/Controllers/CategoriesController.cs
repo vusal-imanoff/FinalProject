@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentalCarFinalProject.Service.DTOs.CategoryDTOs;
 using RentalCarFinalProject.Service.Interfaces;
@@ -8,6 +9,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
 {
     [Route("api/admin/[controller]")]
     [ApiController]
+    [Authorize(Roles ="SuperAdmin")]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

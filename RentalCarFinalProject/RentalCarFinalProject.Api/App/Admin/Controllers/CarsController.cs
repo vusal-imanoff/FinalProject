@@ -35,5 +35,26 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
             await _carService.PostAsync(carPostDTO);
             return StatusCode(201);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int? id,CarPutDTO carPutDTO)
+        {
+            await _carService.PutAsync(id, carPutDTO);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            await _carService.DeleteAsync(id);
+            return NoContent();
+        }
+        
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Restore(int? id)
+        {
+            await _carService.RestoreAsync(id);
+            return NoContent();
+        }
     }
 }

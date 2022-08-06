@@ -267,6 +267,9 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
@@ -328,6 +331,8 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("BrandId");
 
@@ -607,6 +612,10 @@ namespace RentalCarFinalProject.Data.Migrations
 
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Car", b =>
                 {
+                    b.HasOne("RentalCarFinalProject.Core.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+
                     b.HasOne("RentalCarFinalProject.Core.Entities.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")

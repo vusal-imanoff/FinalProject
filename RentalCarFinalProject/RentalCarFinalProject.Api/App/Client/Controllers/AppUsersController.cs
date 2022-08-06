@@ -28,6 +28,22 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
             return StatusCode(201);
         }
 
+        /// <summary>
+        /// Sisteme Daxil Olmaq Service
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST api/accounts/login
+        ///     {        
+        ///       "email": "superadmin@rental.az",
+        ///       "password": "Super@123"      
+        ///     }
+        /// </remarks>
+        /// <param name="loginDto"></param>
+        /// <returns>response olaraq token qaytarir</returns>
+        /// <response code="200">Successfuly Login</response>
+        /// <response code="400">Email Or Password Is InCorred</response>         
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {

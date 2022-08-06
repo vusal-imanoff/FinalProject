@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using RentalCarFinalProject.Api.Extensions;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Data;
@@ -17,7 +18,9 @@ using RentalCarFinalProject.Service.DTOs.BrandDTOs;
 using RentalCarFinalProject.Service.Mappings;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RentalCarFinalProject.Api
@@ -34,6 +37,54 @@ namespace RentalCarFinalProject.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "P225 First Api",
+                    Version = "v9999",
+                    Description = "An API to perform Employee operations",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "P225",
+                        Email = "P225@code.edu.az",
+                        Url = new Uri("https://code.edu.az"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Employee API LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+            });
+
             services.AddControllers().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<BrandPostValidator>());
 
             services.AddDbContext<AppDbContext>(options=>
@@ -97,6 +148,13 @@ namespace RentalCarFinalProject.Api
             app.ExceptionHandler();
 
             app.UseRouting();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseStaticFiles();
 
