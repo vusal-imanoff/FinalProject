@@ -20,6 +20,7 @@ namespace RentalCarFinalProject.Data
         private readonly ModelRepository modelRepository;
         private readonly CarRepository carRepository;
         private readonly TagRepository tagRepository;
+        private readonly BlogRepository blogRepository;
 
         private readonly AppDbContext _context;
 
@@ -39,6 +40,7 @@ namespace RentalCarFinalProject.Data
         public IModelRepository ModelRepository => modelRepository!=null ? modelRepository : new ModelRepository(_context);
         public ICarRepository CarRepository => carRepository!=null ? carRepository : new CarRepository(_context);
         public ITagRepository TagRepository => tagRepository!=null ? tagRepository : new TagRepository(_context);
+        public IBlogRepository BlogRepository => blogRepository!=null ? blogRepository : new BlogRepository(_context);
 
         public async Task<int> CommitAsync()
         {

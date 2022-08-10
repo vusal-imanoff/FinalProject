@@ -28,6 +28,7 @@ namespace RentalCarFinalProject.Api.Extensions
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<IAppUserService, AppUserService>();
             services.AddScoped<ITagService, TagService>();
+            services.AddScoped<IBlogService, BlogService>();
 
 
             services.AddScoped<IJwtManager, JwtManager>();
