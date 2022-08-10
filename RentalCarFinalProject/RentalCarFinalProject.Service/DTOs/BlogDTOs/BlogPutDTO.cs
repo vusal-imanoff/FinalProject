@@ -19,7 +19,7 @@ namespace RentalCarFinalProject.Service.DTOs.BlogDTOs
         public BlogPutValidator()
         {
             RuleFor(b => b.Name).NotEmpty().MaximumLength(255);
-            RuleFor(b => b.Description).MaximumLength(1000);
+            RuleFor(b => b.Description).NotEmpty().MaximumLength(1000);
             RuleFor(b => b).Custom((x, context) =>
             {
                 if (x.File != null)

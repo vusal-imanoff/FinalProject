@@ -30,6 +30,7 @@ namespace RentalCarFinalProject.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<CarTags> CarTags { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
 
 
 
