@@ -300,7 +300,6 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
@@ -351,6 +350,39 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.HasIndex("YearId");
 
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.CarImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CarID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarID");
+
+                    b.ToTable("CarImages");
                 });
 
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Category", b =>
@@ -649,6 +681,15 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.HasOne("RentalCarFinalProject.Core.Entities.Year", "Year")
                         .WithMany()
                         .HasForeignKey("YearId");
+                });
+
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.CarImages", b =>
+                {
+                    b.HasOne("RentalCarFinalProject.Core.Entities.Car", "Car")
+                        .WithMany("CarImages")
+                        .HasForeignKey("CarID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Model", b =>

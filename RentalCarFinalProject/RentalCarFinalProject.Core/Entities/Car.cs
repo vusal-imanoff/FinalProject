@@ -30,5 +30,6 @@ namespace RentalCarFinalProject.Core.Entities
         public Year Year { get; set; }
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+        public List<CarImages> CarImages { get; set; }
     }
 }

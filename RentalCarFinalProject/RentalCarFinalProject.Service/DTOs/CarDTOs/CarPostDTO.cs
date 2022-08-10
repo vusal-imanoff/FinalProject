@@ -13,8 +13,8 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
         public string Description { get; set; } 
         public double Price { get; set; }
         public double DiscountPrice { get; set; }
-        public string Image { get; set; }
         public IFormFile File { get; set; }
+        public List<IFormFile> Files { get; set; }
         public bool IsFree { get; set; }
         public int BrandId { get; set; }
         public int ModelId { get; set; }
@@ -33,8 +33,9 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
             RuleFor(b => b.Plate).NotEmpty().MaximumLength(255);
             RuleFor(b => b.Description).NotEmpty().MaximumLength(1000);
             RuleFor(b => b.Price).NotEmpty();
+            RuleFor(b => b.Files).NotEmpty();
+            RuleFor(b => b.File).NotEmpty();
             RuleFor(b => b.DiscountPrice).NotEmpty();
-            RuleFor(b => b.Image).MaximumLength(1000);
             RuleFor(b => b.BrandId).NotEmpty();
             RuleFor(b => b.ModelId).NotEmpty();
             RuleFor(b => b.CategoryId).NotEmpty();

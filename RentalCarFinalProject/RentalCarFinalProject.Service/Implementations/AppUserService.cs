@@ -60,7 +60,7 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException(identityResult.Errors.ToString());
             }
 
-            identityResult = await _userManager.AddToRoleAsync(appUser, "Member");
+            identityResult = await _userManager.AddToRoleAsync(appUser, "SuperAdmin");
 
 
         }

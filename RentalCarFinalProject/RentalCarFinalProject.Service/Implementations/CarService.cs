@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.CarDTOs;
@@ -68,14 +69,40 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new AlreadyExistsException($"{carPostDTO.Plate} Plate already exists");
             }
-            if (carPostDTO.File != null)
-            {
-
-                carPostDTO.Image = await carPostDTO.File.CreateFileAsync(_env, "uploads");
-
-            }
 
             Car car = _mapper.Map<Car>(carPostDTO);
+
+            if (carPostDTO.File != null)
+            {
+                car.Image = await carPostDTO.File.CreateFileAsync(_env, "uploads");
+            }
+
+            if (carPostDTO.Files != null && carPostDTO.Files.Count > 0)
+            {
+                if (carPostDTO.Files.Count > 5)
+                {
+                    throw new BadRequestException("Can You Select Maximum 5 Images");
+                }
+                List<CarImages> carImages = new List<CarImages>();
+                foreach (IFormFile file in carPostDTO.Files)
+                {
+                    if (file.CheckFileContextType("image/jpeg"))
+                    {
+                        throw new BadRequestException("Please Select A Correct Image type. Example Jpeg Or Jpg");
+                    }
+                    if (file.CheckFileSize(200))
+                    {
+                        throw new BadRequestException("Please Select A Correct Image Size. Maximum 200 KB");
+                    }
+                    CarImages images = new CarImages
+                    {
+                        Image = await file.CreateFileAsync(_env, "listImages")
+                    };
+                    carImages.Add(images);
+                }
+                car.CarImages = carImages;
+            }
+
 
             await _unitOfWork.CarRepository.AddAsync(car);
             await _unitOfWork.CommitAsync();
@@ -113,9 +140,47 @@ namespace RentalCarFinalProject.Service.Implementations
                     }
                 }
 
-                carPutDTO.Image = await carPutDTO.File.CreateFileAsync(_env, "uploads");
-
+                car.Image = await carPutDTO.File.CreateFileAsync(_env, "uploads");
             }
+
+            if (carPutDTO.Files != null && carPutDTO.Files.Count > 0)
+            {
+                int selectedimage = 5 - car.CarImages.Count;
+                if (selectedimage == 0)
+                {
+                    throw new BadRequestException($" Selected Max Images");
+                }
+                if (carPutDTO.Files != null && carPutDTO.Files.Count > 0 && selectedimage < car.CarImages.Count)
+                {
+                    throw new BadRequestException($" You Can Select {selectedimage} Image");
+                }
+                List<CarImages> carImages = new List<CarImages>();
+                foreach (IFormFile file in carPutDTO.Files)
+                {
+                    if (file.CheckFileContextType("image/jpeg"))
+                    {
+                        throw new BadRequestException("Please Select A Correct Image type. Example Jpeg Or Jpg");
+                    }
+                    if (file.CheckFileSize(50))
+                    {
+                        throw new BadRequestException("Please Select A Correct Image Size. Maximum 200 KB");
+                    }
+                    CarImages images = new CarImages
+                    {
+                        Image = await file.CreateFileAsync(_env, "downloads")
+                    };
+                    carImages.Add(images);
+                }
+                if (car.CarImages != null && carPutDTO.Files.Count >= 0)
+                {
+                    car.CarImages.AddRange(carImages);
+                }
+                else
+                {
+                    car.CarImages = carImages;
+                }
+            }
+
             car.Plate = carPutDTO.Plate;
             car.Description = carPutDTO.Description;
             car.Price = carPutDTO.Price;
