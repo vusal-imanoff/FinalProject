@@ -17,6 +17,7 @@ namespace RentalCarFinalProject.Core
         ITransmissionRepository TransmissionRepository { get; }
         IModelRepository ModelRepository { get; }
         ICarRepository CarRepository { get; }
+        ITagRepository TagRepository { get; }
         Task<int> CommitAsync();
         int Commit();
     }

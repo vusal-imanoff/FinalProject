@@ -37,7 +37,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int? id,CarPutDTO carPutDTO)
+        public async Task<IActionResult> Put(int? id,[FromForm] CarPutDTO carPutDTO)
         {
             await _carService.PutAsync(id, carPutDTO);
             return NoContent();

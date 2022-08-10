@@ -27,6 +27,8 @@ namespace RentalCarFinalProject.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<CarImages> CarImages { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<CarTags> CarTags { get; set; }
 
 
 

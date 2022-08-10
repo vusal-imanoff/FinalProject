@@ -104,6 +104,27 @@ namespace RentalCarFinalProject.Service.Implementations
             }
 
 
+            if (carPostDTO.TagIds != null && carPostDTO.TagIds.Count > 0)
+            {
+                List<CarTags> carTags = new List<CarTags>();
+
+                foreach (int tagId in carPostDTO.TagIds)
+                {
+                    if (!await _unitOfWork.TagRepository.IsExistsAsync(t => !t.IsDeleted && t.Id == tagId))
+                    {
+                        throw new BadRequestException("tag is incorrect");
+                    }
+                    CarTags carTag = new CarTags
+                    {
+                        TagId = tagId
+                    };
+
+                    carTags.Add(carTag);
+                }
+
+                car.CarTags  = carTags;
+            }
+
             await _unitOfWork.CarRepository.AddAsync(car);
             await _unitOfWork.CommitAsync();
         }
@@ -119,7 +140,7 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new BadRequestException("id is not matched");
             }
-            Car car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id && !c.IsDeleted);
+            Car car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id && !c.IsDeleted, "CarImages", "CarTags");
             if (car==null)
             {
                 throw new NotFoundException("car not found");
@@ -167,7 +188,7 @@ namespace RentalCarFinalProject.Service.Implementations
                     }
                     CarImages images = new CarImages
                     {
-                        Image = await file.CreateFileAsync(_env, "downloads")
+                        Image = await file.CreateFileAsync(_env, "listImages")
                     };
                     carImages.Add(images);
                 }
@@ -180,6 +201,32 @@ namespace RentalCarFinalProject.Service.Implementations
                     car.CarImages = carImages;
                 }
             }
+
+            if (carPutDTO.TagIds != null && carPutDTO.TagIds.Count > 0)
+            {
+                List<CarTags> carTags = new List<CarTags>();
+
+                foreach (int tagId in carPutDTO.TagIds)
+                {
+                    if (!await _unitOfWork.TagRepository.IsExistsAsync(t => !t.IsDeleted && t.Id == tagId))
+                    {
+                        throw new BadRequestException("tag is incorrect");
+                    }
+                    //if (product.ProductTags != null && product.ProductTags.Count > 0)
+                    //{
+                    //    product.ProductTags.RemoveRange(tagId,productTags.Count);
+                    //}
+
+                    CarTags carTag = new CarTags
+                    {
+                        TagId = tagId
+                    };
+
+                    carTags.Add(carTag);
+                }
+                car.CarTags = carTags;
+            }
+
 
             car.Plate = carPutDTO.Plate;
             car.Description = carPutDTO.Description;

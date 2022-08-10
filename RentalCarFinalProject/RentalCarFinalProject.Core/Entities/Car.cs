@@ -31,5 +31,6 @@ namespace RentalCarFinalProject.Core.Entities
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
         public List<CarImages> CarImages { get; set; }
+        public List<CarTags> CarTags { get; set; }
     }
 }

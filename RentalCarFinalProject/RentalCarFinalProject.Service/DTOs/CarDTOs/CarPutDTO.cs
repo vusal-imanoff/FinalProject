@@ -16,6 +16,7 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
         public double DiscouuntPrice { get; set; }
         public IFormFile File { get; set; }
         public List<IFormFile> Files { get; set; }
+        public List<int> TagIds { get; set; }
         public bool IsFree { get; set; }
         public int BrandId { get; set; }
         public int ModelId { get; set; }
@@ -34,6 +35,7 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
             RuleFor(b => b.Plate).NotEmpty().MaximumLength(255);
             RuleFor(b => b.Description).NotEmpty().MaximumLength(1000);
             RuleFor(b => b.Files).NotEmpty();
+            RuleFor(b => b.TagIds).NotEmpty();
             RuleFor(b => b.BrandId).NotEmpty();
             RuleFor(b => b.ModelId).NotEmpty();
             RuleFor(b => b.CategoryId).NotEmpty();
