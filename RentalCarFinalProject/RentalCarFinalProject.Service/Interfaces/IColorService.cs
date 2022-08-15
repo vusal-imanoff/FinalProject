@@ -13,6 +13,5 @@ namespace RentalCarFinalProject.Service.Interfaces
         Task<ColorGetDTO> GetByIdAsync(int? id);
         Task PutAsync(int? id, ColorPutDTO colorPutDTO);
         Task DeleteAsync(int? id);
-        Task RestoreAsync(int? id);
     }
 }

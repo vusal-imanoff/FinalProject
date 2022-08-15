@@ -13,6 +13,5 @@ namespace RentalCarFinalProject.Service.Interfaces
         Task<ModelGetDTO> GetByIdAsync(int? id);
         Task PutAsync(int? id, ModelPutDTO modelPutDTO);
         Task DeleteAsync(int? id);
-        Task RestoreAsync(int? id);
     }
 }

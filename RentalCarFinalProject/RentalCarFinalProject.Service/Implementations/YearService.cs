@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.YearDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,13 +30,21 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("id is required");
             }
 
-            Year year = await _unitOfWork.YearRepository.GetAsync(y => !y.IsDeleted && y.Id == id);
+            Year year = await _unitOfWork.YearRepository.GetAsync(y =>y.Id == id);
             if (year==null)
             {
                 throw new NotFoundException($"{year.ProductionYear} not found");
             }
-            year.IsDeleted = true;
-            year.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!year.IsDeleted)
+            {
+                year.IsDeleted = true;
+                year.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                year.IsDeleted = false;
+                year.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -98,22 +107,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-            Year year = await _unitOfWork.YearRepository.GetAsync(y => y.IsDeleted && y.Id == id);
-            if (year == null)
-            {
-                throw new NotFoundException($"{year.ProductionYear} not found");
-            }
-            year.IsDeleted = false;
-            year.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

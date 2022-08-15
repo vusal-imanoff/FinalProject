@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentalCarFinalProject.Core.Entities;
@@ -12,6 +13,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
 {
     [Route("api/admin/[controller]")]
     [ApiController]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
@@ -54,11 +56,5 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
             return NoContent();
         }
 
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Restore(int? id)
-        {
-            await _brandService.RestoreAsync(id);
-            return NoContent();
-        }
     }
 }

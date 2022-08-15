@@ -35,14 +35,23 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("id is required");
             }
             
-            Car car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id && !c.IsDeleted);
+            Car car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id);
 
             if (car == null)
             {
                 throw new NotFoundException("car not found");
             }
-            car.IsDeleted = true;
-            car.DeletedAt = DateTime.UtcNow.AddHours(4);
+
+            if (!car.IsDeleted)
+            {
+                car.IsDeleted = true;
+                car.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                car.IsDeleted = false;
+                car.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -136,17 +145,17 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new BadRequestException("id is required");
             }
-            if (carPutDTO.Id!=id)
+            if (carPutDTO.Id != id)
             {
                 throw new BadRequestException("id is not matched");
             }
             Car car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id && !c.IsDeleted, "CarImages", "CarTags");
-            if (car==null)
+            if (car == null)
             {
                 throw new NotFoundException("car not found");
             }
 
-            if (await _unitOfWork.CarRepository.IsExistsAsync(c=>c.Id!=carPutDTO.Id && c.Plate==carPutDTO.Plate))
+            if (await _unitOfWork.CarRepository.IsExistsAsync(c => c.Id != carPutDTO.Id && c.Plate == carPutDTO.Plate))
             {
                 throw new AlreadyExistsException($"{carPutDTO.Plate} Plate already exists");
             }
@@ -245,25 +254,6 @@ namespace RentalCarFinalProject.Service.Implementations
 
             await _unitOfWork.CommitAsync();
 
-        }
-
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-            Car car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id && c.IsDeleted);
-
-            if (car == null)
-            {
-                throw new NotFoundException("car not found");
-            }
-            car.IsDeleted = false;
-            car.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
         }
     }
 }

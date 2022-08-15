@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.ColorDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -28,13 +29,21 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new BadRequestException("Id Is Required");
             }
-            Color color = await _unitOfWork.ColorRepository.GetAsync(c=>!c.IsDeleted && c.Id==id);
+            Color color = await _unitOfWork.ColorRepository.GetAsync(c=> c.Id==id);
             if (color==null)
             {
                 throw new NotFoundException($"{color.Name} not found");
             }
-            color.IsDeleted = true;
-            color.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!color.IsDeleted)
+            {
+                color.IsDeleted = true;
+                color.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                color.IsDeleted = false;
+                color.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -99,21 +108,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("Id Is Required");
-            }
-            Color color = await _unitOfWork.ColorRepository.GetAsync(c => c.IsDeleted && c.Id == id);
-            if (color == null)
-            {
-                throw new NotFoundException($"{color.Name} not found");
-            }
-            color.IsDeleted = false;
-            color.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

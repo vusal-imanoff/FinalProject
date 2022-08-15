@@ -12,6 +12,7 @@ using RentalCarFinalProject.Service.DTOs.ModelDTOs;
 using RentalCarFinalProject.Service.DTOs.SliderDTOs;
 using RentalCarFinalProject.Service.DTOs.TagDTOs;
 using RentalCarFinalProject.Service.DTOs.TransmissionDTOs;
+using RentalCarFinalProject.Service.DTOs.UserDTOs;
 using RentalCarFinalProject.Service.DTOs.YearDTOs;
 using System;
 using System.Collections.Generic;
@@ -98,6 +99,10 @@ namespace RentalCarFinalProject.Service.Mappings
                .ForMember(des => des.CreatedAt, src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
             CreateMap<Slider, SliderListDTO>();
             CreateMap<Slider, SliderGetDTO>();
+            #endregion
+            #region User
+            CreateMap<UserRegisterDTO, AppUser>();
+            CreateMap<AppUser, UserListDTO>();
             #endregion
         }
     }

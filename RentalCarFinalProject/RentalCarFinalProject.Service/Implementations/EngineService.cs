@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.EngineDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,13 +31,22 @@ namespace RentalCarFinalProject.Service.Implementations
             }
 
 
-            Engine engine = await _unitOfWork.EngineRepository.GetAsync(e => e.Id == id && !e.IsDeleted);
+            Engine engine = await _unitOfWork.EngineRepository.GetAsync(e => e.Id == id);
             if (engine == null)
             {
                 throw new NotFoundException($"{engine} not found");
             }
-            engine.IsDeleted = true;
-            engine.DeletedAt = DateTime.UtcNow.AddHours(4);
+
+            if (!engine.IsDeleted)
+            {
+                engine.IsDeleted = true;
+                engine.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                engine.IsDeleted = false;
+                engine.DeletedAt = null;
+            }
             await _unitOfWork.CommitAsync();
         }
 
@@ -97,22 +107,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-
-            Engine engine = await _unitOfWork.EngineRepository.GetAsync(e => e.Id == id && e.IsDeleted);
-            if (engine == null)
-            {
-                throw new NotFoundException($"{engine} not found");
-            }
-            engine.IsDeleted = false;
-            engine.DeletedAt = null;
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

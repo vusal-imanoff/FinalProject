@@ -16,6 +16,5 @@ namespace RentalCarFinalProject.Service.Interfaces
 
         Task PutAsync(int? id,BrandPutDTO brandPutDTO);
         Task DeleteAsync(int? id);
-        Task RestoreAsync(int? id);
     }
 }

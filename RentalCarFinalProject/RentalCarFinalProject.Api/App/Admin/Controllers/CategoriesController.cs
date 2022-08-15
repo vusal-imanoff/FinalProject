@@ -9,7 +9,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
 {
     [Route("api/admin/[controller]")]
     [ApiController]
-    [Authorize(Roles ="SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -53,11 +53,5 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
             return StatusCode(204);
         }
 
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Restore(int? id)
-        {
-            await _categoryService.RestoreAsync(id);
-            return StatusCode(204);
-        }
     }
 }

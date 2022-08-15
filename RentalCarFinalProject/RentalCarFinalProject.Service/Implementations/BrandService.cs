@@ -33,29 +33,22 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new BadRequestException("Id Is Required");
             }
-            Brand brand = await _unitOfWork.BrandRepository.GetAsync(b => !b.IsDeleted && b.Id == id);
+            Brand brand = await _unitOfWork.BrandRepository.GetAsync(b => b.Id == id);
             if (brand == null)
             {
                 throw new NotFoundException($"{brand.Name} not found");
             }
-            brand.IsDeleted = true;
-            brand.DeletedAt = DateTime.UtcNow.AddHours(4);
-            await _unitOfWork.CommitAsync();
 
-        }
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
+            if (!brand.IsDeleted)
             {
-                throw new BadRequestException("Id Is Required");
+                brand.IsDeleted = true;
+                brand.DeletedAt = CustomDateTime.currentDate;
             }
-            Brand brand = await _unitOfWork.BrandRepository.GetAsync(b => b.IsDeleted && b.Id == id);
-            if (brand == null)
+            else
             {
-                throw new NotFoundException($"{brand.Name} not found");
+                brand.IsDeleted = false;
+                brand.DeletedAt = null;
             }
-            brand.IsDeleted = false;
-            brand.DeletedAt = null;
             await _unitOfWork.CommitAsync();
 
         }

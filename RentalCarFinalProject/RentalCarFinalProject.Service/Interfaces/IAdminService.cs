@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace RentalCarFinalProject.Service.Interfaces
 {
-    public interface IAppUserService
+    public interface IAdminService
     {
-        Task RegisterAsync(RegisterDTO registerDTO);
         Task<string> LoginAsync(LoginDTO loginDTO);
     }
 }

@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.CategoryDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,15 +30,22 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("Id Is Required");
             }
 
-            Category category = await _unitOfWork.CategoryRepository.GetAsync(c => c.Id == id && !c.IsDeleted);
+            Category category = await _unitOfWork.CategoryRepository.GetAsync(c => c.Id == id);
 
             if (category==null)
             {
                 throw new NotFoundException($"{category.Name} Not Found");
             }
-
-            category.IsDeleted = true;
-            category.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!category.IsDeleted)
+            {
+                category.IsDeleted = true;
+                category.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                category.IsDeleted = false;
+                category.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
             
@@ -103,24 +111,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("Id Is Required");
-            }
-
-            Category category = await _unitOfWork.CategoryRepository.GetAsync(c => c.Id == id && c.IsDeleted);
-
-            if (category == null)
-            {
-                throw new NotFoundException($"{category.Name} Not Found");
-            }
-
-            category.IsDeleted = false;
-            category.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

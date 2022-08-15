@@ -33,14 +33,22 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("id is required");
             }
 
-            Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id && !b.IsDeleted);
+            Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id);
             if (blog == null)
             {
                 throw new NotFoundException("blog not found");
             }
 
-            blog.IsDeleted = true;
-            blog.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!blog.IsDeleted)
+            {
+                blog.IsDeleted = true;
+                blog.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                blog.IsDeleted = false;
+                blog.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -95,7 +103,7 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new NotFoundException("blog not found");
             }
 
-            if (await _unitOfWork.BlogRepository.IsExistsAsync(b=>b.Id!=id && b.Name==blogPutDTO.Name))
+            if (await _unitOfWork.BlogRepository.IsExistsAsync(b=>b.Id!=blogPutDTO.Id && b.Name==blogPutDTO.Name))
             {
                 throw new AlreadyExistsException($"{blogPutDTO.Name} is already exists");
             }
@@ -115,27 +123,10 @@ namespace RentalCarFinalProject.Service.Implementations
 
             blog.Name=blogPutDTO.Name;
             blog.Description=blogPutDTO.Description;
+            blog.UpdatedAt = CustomDateTime.currentDate;
 
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-            Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id && b.IsDeleted);
-            if (blog == null)
-            {
-                throw new NotFoundException("blog not found");
-            }
-
-            blog.IsDeleted = false;
-            blog.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

@@ -6,7 +6,7 @@ namespace RentalCarFinalProject.Service.Exceptions
 {
     public class AlreadyExistsException : Exception
     {
-        public AlreadyExistsException(string msg) : base(msg)
+        public AlreadyExistsException(string message) : base(message)
         {
 
         }

@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.TransmissionDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,14 +30,21 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("id is required");
             }
 
-            Transmission transmission = await _unitOfWork.TransmissionRepository.GetAsync(t => !t.IsDeleted && t.Id == id);
+            Transmission transmission = await _unitOfWork.TransmissionRepository.GetAsync(t => t.Id == id);
             if (transmission == null)
             {
                 throw new NotFoundException($"{transmission} not found");
             }
-
-            transmission.IsDeleted = true;
-            transmission.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!transmission.IsDeleted)
+            {
+                transmission.IsDeleted = true;
+                transmission.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                transmission.IsDeleted = false;
+                transmission.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -98,23 +106,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-            Transmission transmission = await _unitOfWork.TransmissionRepository.GetAsync(t => t.IsDeleted && t.Id == id);
-            if (transmission == null)
-            {
-                throw new NotFoundException($"{transmission} not found");
-            }
-
-            transmission.IsDeleted = false;
-            transmission.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

@@ -26,7 +26,8 @@ namespace RentalCarFinalProject.Api.Extensions
             services.AddScoped<ITransmissionService,TransmissionService>();
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<ICarService, CarService>();
-            services.AddScoped<IAppUserService, AppUserService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<ISliderService, SliderService>();
@@ -61,6 +62,18 @@ namespace RentalCarFinalProject.Api.Extensions
                         else if (feature.Error is NotFoundException)
                         {
                             statusCode = 404;
+                            message = feature.Error.Message;
+
+                        }
+                        else if (feature.Error is EmailOrPasswordInCorrectException)
+                        {
+                            statusCode = 403;
+                            message = feature.Error.Message;
+
+                        }
+                        else if (feature.Error is UnauthorizedException)
+                        {
+                            statusCode = 401;
                             message = feature.Error.Message;
 
                         }

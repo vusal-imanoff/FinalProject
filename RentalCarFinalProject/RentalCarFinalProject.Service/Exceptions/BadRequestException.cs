@@ -6,7 +6,7 @@ namespace RentalCarFinalProject.Service.Exceptions
 {
     public class BadRequestException : Exception
     {
-        public BadRequestException(string msg) : base(msg)
+        public BadRequestException(string message) : base(message)
         {
 
         }

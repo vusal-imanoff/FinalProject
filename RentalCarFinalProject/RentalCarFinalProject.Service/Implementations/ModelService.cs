@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.ModelDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,14 +30,22 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("id is required");
             }
 
-            Model model = await _unitOfWork.ModelRepository.GetAsync(m => !m.IsDeleted && m.Id == id);
+            Model model = await _unitOfWork.ModelRepository.GetAsync(m => m.Id == id);
 
             if (model==null)
             {
                 throw new NotFoundException($"{model} not found");
             }
-            model.IsDeleted = true;
-            model.CreatedAt = DateTime.UtcNow.AddHours(4);
+            if (!model.IsDeleted)
+            {
+                model.IsDeleted = true;
+                model.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                model.IsDeleted = false;
+                model.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -101,23 +110,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-            Model model = await _unitOfWork.ModelRepository.GetAsync(m => m.IsDeleted && m.Id == id);
-
-            if (model == null)
-            {
-                throw new NotFoundException($"{model} not found");
-            }
-            model.IsDeleted = false;
-            model.CreatedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

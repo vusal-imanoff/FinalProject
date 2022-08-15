@@ -33,14 +33,21 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("id is required");
             }
 
-            Slider slider = await _unitOfWork.SliderRepository.GetAsync(s => s.Id == id && !s.IsDeleted);
+            Slider slider = await _unitOfWork.SliderRepository.GetAsync(s => s.Id == id );
             if (slider == null)
             {
                 throw new NotFoundException("slider not found");
             }
-
-            slider.IsDeleted = true;
-            slider.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!slider.IsDeleted)
+            {
+                slider.IsDeleted = true;
+                slider.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                slider.IsDeleted = false;
+                slider.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -122,23 +129,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-            Slider slider = await _unitOfWork.SliderRepository.GetAsync(s => s.Id == id && s.IsDeleted);
-            if (slider == null)
-            {
-                throw new NotFoundException("slider not found");
-            }
-
-            slider.IsDeleted = false;
-            slider.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

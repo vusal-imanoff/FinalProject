@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentalCarFinalProject.Service.DTOs.BlogDTOs;
 using RentalCarFinalProject.Service.Interfaces;
@@ -8,6 +9,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
 {
     [Route("api/admin/[controller]")]
     [ApiController]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class BlogsController : ControllerBase
     {
         private readonly IBlogService _blogService;
@@ -50,11 +52,5 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
             return NoContent();
         }
         
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Restore(int? id)
-        {
-            await _blogService.RestoreAsync(id);
-            return NoContent();
-        }
     }
 }

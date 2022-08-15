@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.FuelDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,14 +30,23 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("Id is Required");
             }
 
-            Fuel fuel = await _unitOfWork.FuelRepository.GetAsync(f => !f.IsDeleted && f.Id == id);
+            Fuel fuel = await _unitOfWork.FuelRepository.GetAsync(f =>f.Id == id);
             if (fuel == null)
             {
                 throw new NotFoundException($"{fuel.Name} Not found");
             }
 
-            fuel.IsDeleted = true;
-            fuel.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!fuel.IsDeleted)
+            {
+                fuel.IsDeleted = true;
+                fuel.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                fuel.IsDeleted = false;
+                fuel.DeletedAt = null;
+            }
+
 
             await _unitOfWork.CommitAsync();
         }
@@ -103,23 +113,5 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync(); 
         }
 
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("Id is Required");
-            }
-
-            Fuel fuel = await _unitOfWork.FuelRepository.GetAsync(f => f.IsDeleted && f.Id == id);
-            if (fuel == null)
-            {
-                throw new NotFoundException($"{fuel.Name} Not found");
-            }
-
-            fuel.IsDeleted = false;
-            fuel.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
     }
 }

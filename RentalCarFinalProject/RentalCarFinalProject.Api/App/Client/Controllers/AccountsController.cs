@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.AppUserDTOs;
 using RentalCarFinalProject.Service.Interfaces;
 using System.Threading.Tasks;
@@ -10,12 +9,12 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppUsersController : ControllerBase
+    public class AccountsController : ControllerBase
     {
-        private readonly IAppUserService _appUserService;
+        private readonly IAccountService _appUserService;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AppUsersController(RoleManager<IdentityRole> roleManager, IAppUserService appUserService)
+        public AccountsController(RoleManager<IdentityRole> roleManager, IAccountService appUserService)
         {
             _roleManager = roleManager;
             _appUserService = appUserService;
@@ -28,11 +27,11 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
             return StatusCode(201);
         }
 
-                
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-           
+
             return Ok(await _appUserService.LoginAsync(loginDTO));
         }
 
@@ -50,6 +49,4 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
         #endregion
 
     }
-
-
 }

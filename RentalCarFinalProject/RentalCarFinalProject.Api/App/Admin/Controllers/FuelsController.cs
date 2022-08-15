@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentalCarFinalProject.Service.DTOs.FuelDTOs;
 using RentalCarFinalProject.Service.Interfaces;
@@ -8,6 +9,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
 {
     [Route("api/admin/[controller]")]
     [ApiController]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class FuelsController : ControllerBase
     {
         private readonly IFuelService _fuelService;
@@ -47,13 +49,6 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             await _fuelService.DeleteAsync(id);
-            return NoContent();
-        }
-
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Restore(int? id)
-        {
-            await _fuelService.RestoreAsync(id);
             return NoContent();
         }
     }

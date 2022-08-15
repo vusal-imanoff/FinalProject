@@ -13,6 +13,5 @@ namespace RentalCarFinalProject.Service.Interfaces
         Task<FuelGetDTO> GetByIdAsync(int? id);
         Task PutAsync(int? id, FuelPutDTO fuelPutDTO);
         Task DeleteAsync(int? id);
-        Task RestoreAsync(int? id);
     }
 }

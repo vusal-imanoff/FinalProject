@@ -16,13 +16,13 @@ using System.Threading.Tasks;
 
 namespace RentalCarFinalProject.Service.Implementations
 {
-    public class AppUserService : IAppUserService
+    public class AccountService : IAccountService
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtManager _jwtManager;
 
-        public AppUserService(IMapper mapper, UserManager<AppUser> userManager, IJwtManager jwtManager)
+        public AccountService(IMapper mapper, UserManager<AppUser> userManager, IJwtManager jwtManager)
         {
             _mapper = mapper;
             _userManager = userManager;
@@ -60,8 +60,7 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException(identityResult.Errors.ToString());
             }
 
-            identityResult = await _userManager.AddToRoleAsync(appUser, "SuperAdmin");
-
+            await _userManager.AddToRoleAsync(appUser, "Member");
 
         }
     }

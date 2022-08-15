@@ -3,6 +3,7 @@ using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.TagDTOs;
 using RentalCarFinalProject.Service.Exceptions;
+using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -28,14 +29,21 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new BadRequestException("id is required");
             }
 
-            Tag tag = await _unitOfWork.TagRepository.GetAsync(t => t.Id == id && !t.IsDeleted);
+            Tag tag = await _unitOfWork.TagRepository.GetAsync(t => t.Id == id);
             if (tag == null)
             {
                 throw new NotFoundException("tag is not found");
             }
-
-            tag.IsDeleted = true;
-            tag.DeletedAt = DateTime.UtcNow.AddHours(4);
+            if (!tag.IsDeleted)
+            {
+                tag.IsDeleted = true;
+                tag.DeletedAt = CustomDateTime.currentDate;
+            }
+            else
+            {
+                tag.IsDeleted = false;
+                tag.DeletedAt = null;
+            }
 
             await _unitOfWork.CommitAsync();
         }
@@ -87,7 +95,7 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new NotFoundException("tag is not found");
             }
 
-            if (await _unitOfWork.TagRepository.IsExistsAsync(t=>t.Id!=id && t.Name==tagPutDTO.Name))
+            if (await _unitOfWork.TagRepository.IsExistsAsync(t=>t.Id!=tagPutDTO.Id && t.Name==tagPutDTO.Name))
             {
                 throw new AlreadyExistsException($"{tagPutDTO.Name} is already exists");
             }
@@ -97,24 +105,6 @@ namespace RentalCarFinalProject.Service.Implementations
 
             await _unitOfWork.CommitAsync();
         }
-
-        public async Task RestoreAsync(int? id)
-        {
-            if (id == null)
-            {
-                throw new BadRequestException("id is required");
-            }
-
-            Tag tag = await _unitOfWork.TagRepository.GetAsync(t => t.Id == id && t.IsDeleted);
-            if (tag == null)
-            {
-                throw new NotFoundException("tag is not found");
-            }
-
-            tag.IsDeleted = false;
-            tag.DeletedAt = null;
-
-            await _unitOfWork.CommitAsync();
-        }
+        
     }
 }
