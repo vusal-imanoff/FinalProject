@@ -9,6 +9,7 @@ using RentalCarFinalProject.Service.DTOs.ColorDTOs;
 using RentalCarFinalProject.Service.DTOs.EngineDTOs;
 using RentalCarFinalProject.Service.DTOs.FuelDTOs;
 using RentalCarFinalProject.Service.DTOs.ModelDTOs;
+using RentalCarFinalProject.Service.DTOs.OrderDTOs;
 using RentalCarFinalProject.Service.DTOs.SliderDTOs;
 using RentalCarFinalProject.Service.DTOs.TagDTOs;
 using RentalCarFinalProject.Service.DTOs.TransmissionDTOs;
@@ -80,7 +81,6 @@ namespace RentalCarFinalProject.Service.Mappings
             #endregion
             #region AppUser
             CreateMap<RegisterDTO, AppUser>();
-            CreateMap<AppUser, UserGetDTO>();
             #endregion
             #region Tag
             CreateMap<TagPostDTO, Tag>()
@@ -103,6 +103,12 @@ namespace RentalCarFinalProject.Service.Mappings
             #region User
             CreateMap<UserRegisterDTO, AppUser>();
             CreateMap<AppUser, UserListDTO>();
+            #endregion
+            #region Order
+            CreateMap<OrderPostDTO, Order>()
+               .ForMember(des => des.CreatedAt, src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
+            CreateMap<Order, OrderListDTO>();
+            CreateMap<Order, OrderGetDTO>();
             #endregion
         }
     }

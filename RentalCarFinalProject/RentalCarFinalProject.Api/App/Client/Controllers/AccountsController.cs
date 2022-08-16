@@ -11,30 +11,43 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountService _appUserService;
+        private readonly IAccountService _accountService;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountsController(RoleManager<IdentityRole> roleManager, IAccountService appUserService)
+        public AccountsController(RoleManager<IdentityRole> roleManager, IAccountService accountService)
         {
             _roleManager = roleManager;
-            _appUserService = appUserService;
+            _accountService = accountService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
-            await _appUserService.RegisterAsync(registerDTO);
+            await _accountService.RegisterAsync(registerDTO);
             return StatusCode(201);
         }
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        public async  Task<IActionResult> Login(LoginDTO loginDTO)
         {
 
-            return Ok(await _appUserService.LoginAsync(loginDTO));
+            return Ok( await _accountService.LoginAsync(loginDTO));
         }
 
+        [HttpPost("update")]
+        public async Task<IActionResult> Put(UpdateDTO updateDTO)
+        {
+            await _accountService.UpdateAsync(updateDTO);
+            return NoContent();
+        }
+
+        [HttpPost("resetpassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            await _accountService.ResetPasswordAsync(resetPasswordDTO);
+            return NoContent();
+        }
 
         #region CreateRole
 

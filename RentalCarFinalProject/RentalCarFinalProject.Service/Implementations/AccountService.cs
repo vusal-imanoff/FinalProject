@@ -33,20 +33,22 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<string> LoginAsync(LoginDTO loginDTO)
         {
-            AppUser appUser = await _userManager.FindByEmailAsync(loginDTO.Email);
-            if (appUser == null)
+             AppUser appUser= await _userManager.FindByEmailAsync(loginDTO.Email);
+            if (await _userManager.IsInRoleAsync(appUser,"Member"))
             {
-                throw new BadRequestException("Email or passwod incorrect");
+                if (appUser==null)
+                {
+                    throw new EmailOrPasswordInCorrectException("Email or passwod incorrect");
+                }
+                if (!await _userManager.CheckPasswordAsync(appUser, loginDTO.Password))
+                {
+                    throw new EmailOrPasswordInCorrectException("Email or passwod incorrect");
+                }
+
+                return await _jwtManager.GenerateTokenAsync(appUser);
             }
 
-            if (!await _userManager.CheckPasswordAsync(appUser,loginDTO.Password))
-            {
-                throw new BadRequestException("Email or passwod incorrect");
-            }
-
-
-
-            return await _jwtManager.GenerateTokenAsync(appUser) ;
+            throw new UnauthorizedException("You do not access to enter");
         }
 
         public async Task RegisterAsync(RegisterDTO registerDTO)
@@ -62,6 +64,55 @@ namespace RentalCarFinalProject.Service.Implementations
 
             await _userManager.AddToRoleAsync(appUser, "Member");
 
+        }
+
+        public async Task ResetPasswordAsync(ResetPasswordDTO resetPasswordDTO)
+        {
+            AppUser appUser = await _userManager.FindByIdAsync(resetPasswordDTO.Id);
+
+            if (resetPasswordDTO.CurrentPassword != null)
+            {
+                if (resetPasswordDTO.NewPassword == null)
+                {
+                    throw new BadRequestException("Password is required");
+                }
+
+                if (!await _userManager.CheckPasswordAsync(appUser, resetPasswordDTO.CurrentPassword))
+                {
+                    throw new BadRequestException("current Password is incorrect");
+                }
+
+                IdentityResult identity = await _userManager.ChangePasswordAsync(appUser, resetPasswordDTO.CurrentPassword, resetPasswordDTO.NewPassword);
+
+                if (!identity.Succeeded)
+                {
+                    foreach (var item in identity.Errors)
+                    {
+                        throw new BadRequestException(item.Description.ToString());
+                    }
+                }
+            }
+        }
+
+        public async Task UpdateAsync(UpdateDTO updateDTO)
+        {
+            AppUser appUser = await _userManager.FindByIdAsync(updateDTO.Id);
+
+            appUser.Name = updateDTO.Name;
+            appUser.SurName = updateDTO.Surname;
+            appUser.UserName = updateDTO.Username;
+            appUser.Email = updateDTO.Email;
+            appUser.Age = updateDTO.Age;
+
+            IdentityResult identity = await _userManager.UpdateAsync(appUser);
+
+            if (!identity.Succeeded)
+            {
+                foreach (var item in identity.Errors)
+                {
+                    throw new BadRequestException(item.Description.ToString());
+                }
+            }
         }
     }
 }

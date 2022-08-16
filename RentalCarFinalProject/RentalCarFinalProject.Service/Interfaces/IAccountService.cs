@@ -9,6 +9,8 @@ namespace RentalCarFinalProject.Service.Interfaces
     public interface IAccountService
     {
         Task RegisterAsync(RegisterDTO registerDTO);
+        Task UpdateAsync(UpdateDTO updateDTO);
+        Task ResetPasswordAsync(ResetPasswordDTO resetPasswordDTO);
         Task<string> LoginAsync(LoginDTO loginDTO);
     }
 }

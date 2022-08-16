@@ -41,14 +41,14 @@ namespace RentalCarFinalProject.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "P225 First Api",
-                    Version = "v9999",
+                    Title = "Rental.az First Api",
+                    Version = "v1",
                     Description = "An API to perform Employee operations",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "P225",
-                        Email = "P225@code.edu.az",
+                        Name = "Rental.az",
+                        Email = "vusalmi@code.edu.az",
                         Url = new Uri("https://code.edu.az"),
                     },
                     License = new OpenApiLicense

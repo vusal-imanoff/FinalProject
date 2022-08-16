@@ -10,6 +10,7 @@ namespace RentalCarFinalProject.Service.Interfaces
     {
         Task PostAsync(CarPostDTO carPostDTO);
         Task<List<CarListDTO>> GetAllAsync();
+        Task<PagenetedListDTO<CarListDTO>> GetAllPageIndexAsync(int pageIndex);
         Task<CarGetDTO> GetByIdAsync(int? id);
         Task PutAsync(int? id, CarPutDTO carPutDTO);
         Task DeleteAsync(int? id);

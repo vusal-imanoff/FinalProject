@@ -9,5 +9,6 @@ namespace RentalCarFinalProject.Service.JWTManager.Interfaces
     public interface IJwtManager
     {
         Task<string> GenerateTokenAsync(AppUser appUser);
+        string GetUserNameByToken(string token);
     }
 }

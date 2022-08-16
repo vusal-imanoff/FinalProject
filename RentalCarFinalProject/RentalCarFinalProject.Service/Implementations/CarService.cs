@@ -62,6 +62,14 @@ namespace RentalCarFinalProject.Service.Implementations
             return carListDTOs;
         }
 
+        public async Task<PagenetedListDTO<CarListDTO>> GetAllPageIndexAsync(int pageIndex)
+        {
+            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllAsync(c => !c.IsDeleted));
+            PagenetedListDTO<CarListDTO> pagenetedListDTO = new PagenetedListDTO<CarListDTO>(carListDTOs, pageIndex, 9);
+
+            return pagenetedListDTO;
+        }
+
         public async Task<CarGetDTO> GetByIdAsync(int? id)
         {
             if (id==null)

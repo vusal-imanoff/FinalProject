@@ -25,9 +25,29 @@ namespace RentalCarFinalProject.Service.Implementations
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public Task ActiveAsync(string id)
+        public async Task ActiveAsync(string id)
         {
-            throw new NotImplementedException();
+            if (id==null)
+            {
+                throw new BadRequestException("id is required");
+            }
+            AppUser appUser = await _userManager.FindByIdAsync(id);
+
+            if (appUser == null)
+            {
+                throw new NotFoundException("user not found");
+            }
+
+            if (appUser.IsActive)
+            {
+                appUser.IsActive = false;
+            }
+            else
+            {
+                appUser.IsActive = true;
+            }
+
+            await _unitOfWork.CommitAsync();
         }
 
 
@@ -52,12 +72,14 @@ namespace RentalCarFinalProject.Service.Implementations
             if (userRegisterDTO.IsAdmin == true)
             {
                 await _userManager.AddToRoleAsync(appUser, "Admin");
+                appUser.IsAdmin=true;
             }
             else
             {
                 await _userManager.AddToRoleAsync(appUser, "Member");
 
             }
+            appUser.IsActive = true;
 
             if (!identityResult.Succeeded)
             {

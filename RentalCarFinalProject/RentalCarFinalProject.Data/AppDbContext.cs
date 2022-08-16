@@ -31,6 +31,7 @@ namespace RentalCarFinalProject.Data
         public DbSet<CarTags> CarTags { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
 
 

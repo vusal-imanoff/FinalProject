@@ -28,9 +28,9 @@ namespace RentalCarFinalProject.Service.JWTManager.Services
         {
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier,appUser.Id),
-                new Claim(ClaimTypes.Name,appUser.Name),
-                new Claim(ClaimTypes.Email,appUser.Email)
+                new Claim("id",appUser.Id),
+                new Claim("username",appUser.UserName),
+                new Claim("email",appUser.Email)
             };
 
             IList<string> roles = await _userManager.GetRolesAsync(appUser);
@@ -49,7 +49,7 @@ namespace RentalCarFinalProject.Service.JWTManager.Services
                 audience: Configuration.GetSection("JWT:Audience").Value,
                 claims: claims,
                 signingCredentials: signingCredentials,
-                expires: DateTime.UtcNow.AddHours(4)
+                expires: DateTime.UtcNow.AddDays(30)
                 );
 
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
@@ -58,5 +58,9 @@ namespace RentalCarFinalProject.Service.JWTManager.Services
             return token;
         }
 
+        public string GetUserNameByToken(string token)
+        { 
+            return new JwtSecurityTokenHandler().ReadJwtToken(token).Claims.ToList().FirstOrDefault(c => c.Type == "username").Value;
+        }
     }
 }
