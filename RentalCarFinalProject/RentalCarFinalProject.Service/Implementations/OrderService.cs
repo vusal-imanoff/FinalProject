@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace RentalCarFinalProject.Service.Implementations
 {
-    public class OrderService:IOrderService
+    public class OrderService: IOrderService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -93,7 +93,13 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<List<OrderListDTO>> GetAllAsync(string user)
+        public async Task<List<OrderListDTO>> GetAllAsync()
+        {
+            List<OrderListDTO> orderListDTOs = _mapper.Map<List<OrderListDTO>>(await _unitOfWork.OrderRepository.GetAllAsync(o => !o.IsDeleted));
+            return orderListDTOs;
+        }
+
+        public async Task<List<OrderListDTO>> GetAllByUsernameAsync(string user)
         {
             AppUser appUser = await _userManager.FindByNameAsync(user);
 
@@ -106,7 +112,19 @@ namespace RentalCarFinalProject.Service.Implementations
             return orderListDTOs;
         }
 
-        public async Task<OrderGetDTO> GetByIdAsync(int? id, string user)
+
+        public async Task<OrderGetDTO> GetByIdAsync(int? id)
+        {
+            if (id == null)
+            {
+                throw new BadRequestException("Id is required");
+            }
+
+            OrderGetDTO orderGetDTO = _mapper.Map<OrderGetDTO>(await _unitOfWork.OrderRepository.GetAsync(o => o.Id == id));
+            return orderGetDTO;
+        }
+
+        public async Task<OrderGetDTO> GetByIdByUsernameAsync(int? id, string user)
         {
             if (id == null)
             {
