@@ -14,6 +14,7 @@ namespace RentalCarFinalProject.Data.Configurations
             builder.Property(o => o.CarId).IsRequired(true);
             builder.Property(o => o.AppUserId).IsRequired(true);
             builder.Property(o => o.Price).IsRequired(true).HasColumnType("money");
+            builder.Property(o => o.Owner).HasMaxLength(255);
         }
     }
 }

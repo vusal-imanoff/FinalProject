@@ -52,7 +52,13 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<EngineListDTO>> GetAllAsync()
         {
-            List<EngineListDTO> engineListDTOs = _mapper.Map<List<EngineListDTO>>(await _unitOfWork.EngineRepository.GetAllAsync(e => !e.IsDeleted));
+            List<EngineListDTO> engineListDTOs = _mapper.Map<List<EngineListDTO>>(await _unitOfWork.EngineRepository.GetAllAsync());
+            return engineListDTOs;
+        }
+
+        public async Task<List<EngineListDTO>> GetAllForUsersAsync()
+        {
+            List<EngineListDTO> engineListDTOs = _mapper.Map<List<EngineListDTO>>(await _unitOfWork.EngineRepository.GetAllForAdminAsync(e => !e.IsDeleted));
             return engineListDTOs;
         }
 

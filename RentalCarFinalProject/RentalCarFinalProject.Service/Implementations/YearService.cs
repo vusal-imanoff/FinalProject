@@ -51,7 +51,13 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<YearListDTO>> GetAllAsync()
         {
-            List<YearListDTO> yearListDTO = _mapper.Map<List<YearListDTO>>(await _unitOfWork.YearRepository.GetAllAsync(y => !y.IsDeleted));
+            List<YearListDTO> yearListDTO = _mapper.Map<List<YearListDTO>>(await _unitOfWork.YearRepository.GetAllAsync());
+            return yearListDTO;
+        }
+
+        public async Task<List<YearListDTO>> GetAllForUsersAsync()
+        {
+            List<YearListDTO> yearListDTO = _mapper.Map<List<YearListDTO>>(await _unitOfWork.YearRepository.GetAllForAdminAsync(y => !y.IsDeleted));
             return yearListDTO;
         }
 

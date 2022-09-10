@@ -23,6 +23,7 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
         public int FuelId { get; set; }
         public int EngineId { get; set; }
         public int ColorId { get; set; }
+        public int CompanyId { get; set; }
         public int TransmissionId { get; set; }
         public int YearId { get; set; }
     }
@@ -36,7 +37,6 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
             RuleFor(b => b.Price).NotEmpty();
             RuleFor(b => b.Files).NotEmpty();
             RuleFor(b => b.File).NotEmpty();
-            RuleFor(b => b.DiscountPrice).NotEmpty();
             RuleFor(b => b.TagIds).NotEmpty();
             RuleFor(b => b.BrandId).NotEmpty();
             RuleFor(b => b.ModelId).NotEmpty();
@@ -44,7 +44,9 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
             RuleFor(b => b.FuelId).NotEmpty();
             RuleFor(b => b.EngineId).NotEmpty();
             RuleFor(b => b.TransmissionId).NotEmpty();
+            RuleFor(b => b.ColorId).NotEmpty();
             RuleFor(b => b.YearId).NotEmpty();
+            RuleFor(b => b.CompanyId).NotEmpty();
             RuleFor(b => b).Custom((x, context) =>
             {
                 if (x.File != null)
@@ -53,9 +55,9 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
                     {
                         context.AddFailure("Please Select Correct Image Type. Example Jpeg or Jpg");
                     }
-                    if (x.File.CheckFileSize(200))
+                    if (x.File.CheckFileSize(2000))
                     {
-                        context.AddFailure("Please Select Coorect Image Size. Maximum 200 KB");
+                        context.AddFailure("Please Select Coorect Image Size. Maximum 2 MB");
                     }
                 }
             });

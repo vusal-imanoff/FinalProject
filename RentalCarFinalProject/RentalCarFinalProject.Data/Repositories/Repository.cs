@@ -25,7 +25,22 @@ namespace RentalCarFinalProject.Data.Repositories
             await _context.Set<TEntity>().AddAsync(entity);
         }
 
-        public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression, params string[] includes)
+        public async Task<List<TEntity>> GetAllAsync(params string[] includes)
+        {
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+
+            if (includes != null && includes.Length > 0)
+            {
+                foreach (string include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<List<TEntity>> GetAllForAdminAsync(Expression<Func<TEntity, bool>> expression, params string[] includes)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>().Where(expression);
 

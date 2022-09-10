@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.AppUserDTOs;
 using RentalCarFinalProject.Service.Interfaces;
 using System.Threading.Tasks;
@@ -12,21 +13,37 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IAccountService _accountService;
+        private readonly IEmailService _emailService;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AccountsController(RoleManager<IdentityRole> roleManager, IAccountService accountService)
+        public AccountsController(RoleManager<IdentityRole> roleManager, IAccountService accountService, UserManager<AppUser> userManager, IEmailService emailService)
         {
             _roleManager = roleManager;
             _accountService = accountService;
+            _userManager = userManager;
+            _emailService = emailService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
             await _accountService.RegisterAsync(registerDTO);
-            return StatusCode(201);
+            AppUser appUser = await _userManager.FindByEmailAsync(registerDTO.Email);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+            var link = Url.Action("ConfirmEmail", "Accounts", new { userId = appUser.Id, token = code }, Request.Scheme, Request.Host.ToString());
+            _emailService.Register(registerDTO, link);
+            return Ok();
         }
 
+        [HttpGet("confirmemail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            await _userManager.ConfirmEmailAsync(user, token);
+            return Ok();
+
+        }
 
         [HttpPost("login")]
         public async  Task<IActionResult> Login(LoginDTO loginDTO)

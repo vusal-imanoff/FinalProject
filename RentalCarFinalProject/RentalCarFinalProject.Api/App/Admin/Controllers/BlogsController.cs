@@ -31,7 +31,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
             return Ok(await _blogService.GetByIdAsync(id));
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> Post([FromForm]BlogPostDTO blogPostDTO)
         {
             await _blogService.PostAsync(blogPostDTO);

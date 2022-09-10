@@ -77,7 +77,6 @@ namespace RentalCarFinalProject.Service.Implementations
             else
             {
                 await _userManager.AddToRoleAsync(appUser, "Member");
-
             }
             appUser.IsActive = true;
 

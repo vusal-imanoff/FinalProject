@@ -88,14 +88,14 @@ namespace RentalCarFinalProject.Service.Implementations
 
             }
 
-            order.OrderStatus = OrderStatus.End;
+            order.OrderStatus = OrderStatus.Complected;
 
             await _unitOfWork.CommitAsync();
         }
 
         public async Task<List<OrderListDTO>> GetAllAsync()
         {
-            List<OrderListDTO> orderListDTOs = _mapper.Map<List<OrderListDTO>>(await _unitOfWork.OrderRepository.GetAllAsync(o => !o.IsDeleted));
+            List<OrderListDTO> orderListDTOs = _mapper.Map<List<OrderListDTO>>(await _unitOfWork.OrderRepository.GetAllAsync());
             return orderListDTOs;
         }
 
@@ -108,10 +108,15 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new NotFoundException("User Not Found");
             }
 
-            List<OrderListDTO> orderListDTOs = _mapper.Map<List<OrderListDTO>>(await _unitOfWork.OrderRepository.GetAllAsync(o => !o.IsDeleted && o.AppUserId == appUser.Id));
+            List<OrderListDTO> orderListDTOs = _mapper.Map<List<OrderListDTO>>(await _unitOfWork.OrderRepository.GetAllForAdminAsync(o => !o.IsDeleted && o.AppUserId == appUser.Id));
             return orderListDTOs;
         }
 
+        public async Task<List<OrderListDTO>> GetAllForUsersAsync()
+        {
+            List<OrderListDTO> orderListDTOs = _mapper.Map<List<OrderListDTO>>(await _unitOfWork.OrderRepository.GetAllForAdminAsync(o => !o.IsDeleted));
+            return orderListDTOs;
+        }
 
         public async Task<OrderGetDTO> GetByIdAsync(int? id)
         {
@@ -144,6 +149,14 @@ namespace RentalCarFinalProject.Service.Implementations
         public async Task PostAsync(OrderPostDTO orderPostDTO)
         {
             Order order = _mapper.Map<Order>(orderPostDTO);
+            if (orderPostDTO.IsCard)
+            {
+                order.CVV = orderPostDTO.CVV;
+                order.Owner = orderPostDTO.Owner;
+                order.CartNumber = orderPostDTO.CartNumber;
+                order.CartMonth = orderPostDTO.CartMonth;
+                order.CartYear = orderPostDTO.CartYear;
+            }
             order.OrderStatus = OrderStatus.Pending;
 
             await _unitOfWork.OrderRepository.AddAsync(order);
@@ -185,6 +198,15 @@ namespace RentalCarFinalProject.Service.Implementations
             if (order == null)
             {
                 throw new NotFoundException("order not found");
+            }
+
+            if (orderPutDTO.IsCard)
+            {
+                order.CVV = orderPutDTO.CVV;
+                order.Owner = orderPutDTO.Owner;
+                order.CartNumber = orderPutDTO.CartNumber;
+                order.CartMonth = orderPutDTO.CartMonth;
+                order.CartYear = orderPutDTO.CartYear;
             }
 
             order.Price = orderPutDTO.Price;

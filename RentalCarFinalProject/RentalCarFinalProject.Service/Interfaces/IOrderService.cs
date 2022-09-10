@@ -12,6 +12,7 @@ namespace RentalCarFinalProject.Service.Interfaces
         Task<List<OrderListDTO>> GetAllByUsernameAsync(string user);
         Task<OrderGetDTO> GetByIdByUsernameAsync(int? id, string user);
         Task<List<OrderListDTO>> GetAllAsync();
+        Task<List<OrderListDTO>> GetAllForUsersAsync();
         Task<OrderGetDTO> GetByIdAsync(int? id);
         Task DeleteAsync(int? id);
         Task PutAsync(int? id, OrderPutDTO orderPutDTO);

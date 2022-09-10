@@ -19,7 +19,7 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
         [HttpGet("getblogs")]
         public async Task<IActionResult> Blogs()
         {
-            return Ok(await _blogService.GetAllAsync());
+            return Ok(await _blogService.GetAllForUsersAsync());
         }
         [HttpGet("blogs/{id}")]
         public async Task<IActionResult> Details(int? id)

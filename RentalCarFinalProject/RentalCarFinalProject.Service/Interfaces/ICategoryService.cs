@@ -11,6 +11,7 @@ namespace RentalCarFinalProject.Service.Interfaces
         Task PostAsync(CategoryPostDTO categoryPostDTO);
 
         Task<List<CategoryListDTO>> GetAllAsync();
+        Task<List<CategoryListDTO>> GetAllForUsersAsync();
 
         Task<CategoryGetDTO> GetByIdAsync(int? id);
 

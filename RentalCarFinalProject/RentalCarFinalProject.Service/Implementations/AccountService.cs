@@ -55,12 +55,36 @@ namespace RentalCarFinalProject.Service.Implementations
         {   
             AppUser appUser = _mapper.Map<AppUser>(registerDTO);
 
-            IdentityResult identityResult = await _userManager.CreateAsync(appUser,registerDTO.Password);
+            //if (registerDTO.CompanyId != 0)
+            //{
+            //    appUser.Role = "Company";
+            //    appUser.DriverLicanse = null;
+            //    appUser.FinCode = null;
+            //    appUser.SeriaNumber = null;
+            //}
+            //else
+            //{
+            //    appUser.Role = "User";
+            //    appUser.DriverLicanse = registerDTO.DriverLicanse;
+            //    appUser.FinCode = registerDTO.FinCode;
+            //    appUser.SeriaNumber = registerDTO.SeriaNumber;
+            //}
 
-            if (!identityResult.Succeeded)
+            //IdentityResult identityResult = await _userManager.CreateAsync(appUser,registerDTO.Password);
+            try
             {
-                throw new BadRequestException(identityResult.Errors.ToString());
+                IdentityResult identityResult = await _userManager.CreateAsync(appUser, registerDTO.Password);
             }
+            catch (Exception)
+            {
+
+                throw new BadRequestException("salam");
+            }
+
+            //if (!identityResult.Succeeded)
+            //{
+            //    throw new BadRequestException(identityResult.Errors.ToString());
+            //}
 
             await _userManager.AddToRoleAsync(appUser, "Member");
 
@@ -103,6 +127,8 @@ namespace RentalCarFinalProject.Service.Implementations
             appUser.UserName = updateDTO.Username;
             appUser.Email = updateDTO.Email;
             appUser.Age = updateDTO.Age;
+            appUser.CompanyId = updateDTO.CompanyId;
+            appUser.Role=updateDTO.Role;
 
             IdentityResult identity = await _userManager.UpdateAsync(appUser);
 

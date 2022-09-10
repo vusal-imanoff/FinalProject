@@ -51,7 +51,13 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<TransmissionListDTO>> GetAllAsync()
         {
-            List<TransmissionListDTO> transmissionListDTOs = _mapper.Map<List<TransmissionListDTO>>(await _unitOfWork.TransmissionRepository.GetAllAsync(t => !t.IsDeleted));
+            List<TransmissionListDTO> transmissionListDTOs = _mapper.Map<List<TransmissionListDTO>>(await _unitOfWork.TransmissionRepository.GetAllAsync());
+            return transmissionListDTOs;
+        }
+
+        public async Task<List<TransmissionListDTO>> GetAllForUsersAsync()
+        {
+            List<TransmissionListDTO> transmissionListDTOs = _mapper.Map<List<TransmissionListDTO>>(await _unitOfWork.TransmissionRepository.GetAllForAdminAsync(t => !t.IsDeleted));
             return transmissionListDTOs;
         }
 

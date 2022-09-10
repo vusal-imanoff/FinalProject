@@ -14,6 +14,9 @@ namespace RentalCarFinalProject.Data.Configurations
             builder.Property(a => a.Name).IsRequired(true).HasMaxLength(255);
             builder.Property(a=>a.SurName).IsRequired(true).HasMaxLength(255);
             builder.Property(a=>a.Age).IsRequired(true);
+            builder.Property(a=>a.DriverLicanse).HasMaxLength(255);
+            builder.Property(a=>a.FinCode).HasMaxLength(255);
+            builder.Property(a=>a.SeriaNumber).HasMaxLength(255);
         }
     }
 }

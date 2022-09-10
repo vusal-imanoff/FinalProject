@@ -13,6 +13,9 @@ namespace RentalCarFinalProject.Service.DTOs.AppUserDTOs
         public int Age { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string FinCode { get; set; }
+        public string SeriaNumber { get; set; }
+        public string DriverLicanse { get; set; }
     }
 
     public class RegisterDTOValidator : AbstractValidator<RegisterDTO>
@@ -25,8 +28,6 @@ namespace RentalCarFinalProject.Service.DTOs.AppUserDTOs
             RuleFor(a=>a.Age).NotEmpty();
             RuleFor(a => a.Password).NotEmpty().MinimumLength(8);
             RuleFor(a => a.Email).EmailAddress().NotEmpty();
-
-
         }
     }
 

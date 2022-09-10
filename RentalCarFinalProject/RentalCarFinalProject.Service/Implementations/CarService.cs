@@ -58,13 +58,15 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<CarListDTO>> GetAllAsync()
         {
-            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllAsync(c => !c.IsDeleted));
+            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllAsync());
             return carListDTOs;
         }
 
-        public async Task<PagenetedListDTO<CarListDTO>> GetAllPageIndexAsync(int pageIndex)
+
+        public async Task<PagenetedListDTO<CarListDTO>> GetAllForUsersAsync(int pageIndex)
         {
-            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllAsync(c => !c.IsDeleted));
+            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllForAdminAsync(c => !c.IsDeleted,"Brand",
+                "Model","Fuel","Year","Transmission","Category","Engine","Color","Company" , "CarImages", "CarTags"));
             PagenetedListDTO<CarListDTO> pagenetedListDTO = new PagenetedListDTO<CarListDTO>(carListDTOs, pageIndex, 9);
 
             return pagenetedListDTO;
@@ -76,7 +78,28 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new BadRequestException("id is required");
             }
-            CarGetDTO carGetDTO = _mapper.Map<CarGetDTO>(await _unitOfWork.CarRepository.GetAsync(c => c.Id == id));
+            var car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id, "Brand",
+                "Model", "Fuel", "Year", "Transmission", "Category", "Engine", "Color", "Company", "CarImages", "CarTags");
+            CarGetDTO carGetDTO = _mapper.Map<CarGetDTO>(car);
+            carGetDTO.ColorName = car.Color.Name;
+            carGetDTO.BrandName = car.Brand.Name;
+            carGetDTO.ModelName = car.Model.Name;
+            carGetDTO.FuelName = car.Fuel.Name;
+            carGetDTO.EngineName = car.Engine.Name;
+            carGetDTO.TransmissionName = car.Transmission.Name;
+            carGetDTO.Year = car.Year.ProductionYear;
+            carGetDTO.CategoryName = car.Category.Name;
+            carGetDTO.CompanyName = car.Company.Name;
+            //List<CarImages> carImages = new List<CarImages>();
+            //foreach (var images in car.CarImages)
+            //{
+            //   carImages.Add(images);
+            //}
+            //List<CarTags> carTags = new List<CarTags>();
+            //foreach (var tags in car.CarTags)
+            //{
+            //    carTags.Add(tags);
+            //}
             return carGetDTO;
         }
 
@@ -107,9 +130,9 @@ namespace RentalCarFinalProject.Service.Implementations
                     {
                         throw new BadRequestException("Please Select A Correct Image type. Example Jpeg Or Jpg");
                     }
-                    if (file.CheckFileSize(200))
+                    if (file.CheckFileSize(2000))
                     {
-                        throw new BadRequestException("Please Select A Correct Image Size. Maximum 200 KB");
+                        throw new BadRequestException("Please Select A Correct Image Size. Maximum 2 MB");
                     }
                     CarImages images = new CarImages
                     {
@@ -199,9 +222,9 @@ namespace RentalCarFinalProject.Service.Implementations
                     {
                         throw new BadRequestException("Please Select A Correct Image type. Example Jpeg Or Jpg");
                     }
-                    if (file.CheckFileSize(50))
+                    if (file.CheckFileSize(2000))
                     {
-                        throw new BadRequestException("Please Select A Correct Image Size. Maximum 200 KB");
+                        throw new BadRequestException("Please Select A Correct Image Size. Maximum 2 MB");
                     }
                     CarImages images = new CarImages
                     {

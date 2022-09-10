@@ -34,8 +34,8 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
             return Ok(await _orderService.GetAllByUsernameAsync(user));
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int? id)
+        [HttpGet("getorders/{id}")]
+        public async Task<IActionResult> Details(int? id)
         {
             string user = _jwtManager.GetUserNameByToken(Request.Headers["Authorization"].ToString().Split(" ")[1]);
             return Ok(await _orderService.GetByIdByUsernameAsync(id, user));

@@ -161,9 +161,16 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverLicanse")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
@@ -171,6 +178,10 @@ namespace RentalCarFinalProject.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FinCode")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -183,6 +194,9 @@ namespace RentalCarFinalProject.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("LoginStatus")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -206,8 +220,15 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeriaNumber")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<string>("SurName")
                         .IsRequired()
@@ -222,6 +243,8 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -311,9 +334,6 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
@@ -321,6 +341,9 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("ColorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -375,13 +398,13 @@ namespace RentalCarFinalProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ColorId");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("EngineId");
 
@@ -476,6 +499,9 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -519,6 +545,62 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+                });
+
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<bool>("CompanyStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WorkTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Engine", b =>
@@ -579,6 +661,46 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.ToTable("Fuels");
                 });
 
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MyProperty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReciveUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Model", b =>
                 {
                     b.Property<int>("Id")
@@ -624,7 +746,22 @@ namespace RentalCarFinalProject.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("CVV")
+                        .HasColumnType("int");
+
                     b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartYear")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -633,11 +770,18 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsCard")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
+
+                    b.Property<string>("Owner")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
@@ -650,6 +794,8 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.HasIndex("AppUserId");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Orders");
                 });
@@ -828,12 +974,15 @@ namespace RentalCarFinalProject.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.AppUser", b =>
+                {
+                    b.HasOne("RentalCarFinalProject.Core.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+                });
+
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Car", b =>
                 {
-                    b.HasOne("RentalCarFinalProject.Core.Entities.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
                     b.HasOne("RentalCarFinalProject.Core.Entities.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
@@ -847,6 +996,10 @@ namespace RentalCarFinalProject.Data.Migrations
                     b.HasOne("RentalCarFinalProject.Core.Entities.Color", "Color")
                         .WithMany()
                         .HasForeignKey("ColorId");
+
+                    b.HasOne("RentalCarFinalProject.Core.Entities.Company", "Company")
+                        .WithMany("Cars")
+                        .HasForeignKey("CompanyId");
 
                     b.HasOne("RentalCarFinalProject.Core.Entities.Engine", "Engine")
                         .WithMany()
@@ -891,6 +1044,13 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasForeignKey("TagId");
                 });
 
+            modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Message", b =>
+                {
+                    b.HasOne("RentalCarFinalProject.Core.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+                });
+
             modelBuilder.Entity("RentalCarFinalProject.Core.Entities.Model", b =>
                 {
                     b.HasOne("RentalCarFinalProject.Core.Entities.Brand", "Brand")
@@ -913,6 +1073,10 @@ namespace RentalCarFinalProject.Data.Migrations
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("RentalCarFinalProject.Core.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
                 });
 #pragma warning restore 612, 618
         }

@@ -55,7 +55,13 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<BrandListDTO>> GetAllAsync()
         {
-            List<BrandListDTO> brandListDTO = _mapper.Map<List<BrandListDTO>>(await _unitOfWork.BrandRepository.GetAllAsync(b=>!b.IsDeleted));
+            List<BrandListDTO> brandListDTO = _mapper.Map<List<BrandListDTO>>(await _unitOfWork.BrandRepository.GetAllAsync());
+            return brandListDTO;
+        }
+
+        public async Task<List<BrandListDTO>> GetAllForUsersAsync()
+        {
+            List<BrandListDTO> brandListDTO = _mapper.Map<List<BrandListDTO>>(await _unitOfWork.BrandRepository.GetAllForAdminAsync(b => !b.IsDeleted));
             return brandListDTO;
         }
 
@@ -73,14 +79,14 @@ namespace RentalCarFinalProject.Service.Implementations
                 throw new AlreadyExistsException($"{brandPostDTO.Name} Brand Already Exist.");
             }
 
+
+            Brand brand = _mapper.Map<Brand>(brandPostDTO);
             if (brandPostDTO.File != null)
             {
 
-                brandPostDTO.Image = await brandPostDTO.File.CreateFileAsync(_env, "uploads");
+                brand.Image = await brandPostDTO.File.CreateFileAsync(_env, "brands");
 
             }
-
-            Brand brand = _mapper.Map<Brand>(brandPostDTO);
 
             await _unitOfWork.BrandRepository.AddAsync(brand);
             await _unitOfWork.CommitAsync();
@@ -111,20 +117,19 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 if (brand.Image != null)
                 {
-                    string fullpath = Path.Combine(_env.WebRootPath, "uploads", brand.Image);
+                    string fullpath = Path.Combine(_env.WebRootPath, "brands", brand.Image);
                     if (System.IO.File.Exists(fullpath))
                     {
                         System.IO.File.Delete(fullpath);
                     }
                 }
 
-                brandPutDTO.Image = await brandPutDTO.File.CreateFileAsync(_env, "uploads");
+                brand.Image = await brandPutDTO.File.CreateFileAsync(_env, "brands");
 
             }
 
             brand.Name = brandPutDTO.Name;
             brand.UpdatedAt = DateTime.UtcNow.AddHours(4);
-            brand.Image = brandPutDTO.Image;
 
             await _unitOfWork.CommitAsync();
 

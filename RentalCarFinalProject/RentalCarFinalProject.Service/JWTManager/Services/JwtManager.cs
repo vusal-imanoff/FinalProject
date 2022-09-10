@@ -30,7 +30,11 @@ namespace RentalCarFinalProject.Service.JWTManager.Services
             {
                 new Claim("id",appUser.Id),
                 new Claim("username",appUser.UserName),
-                new Claim("email",appUser.Email)
+                new Claim("email",appUser.Email),
+                new Claim("age",appUser.Age.ToString()),
+                new Claim("seriaNumber",appUser.SeriaNumber),
+                new Claim("finCode",appUser.FinCode),
+                new Claim("driverLicanse",appUser.DriverLicanse)
             };
 
             IList<string> roles = await _userManager.GetRolesAsync(appUser);

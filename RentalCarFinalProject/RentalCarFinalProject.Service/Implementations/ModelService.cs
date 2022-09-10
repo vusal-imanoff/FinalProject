@@ -52,7 +52,25 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<ModelListDTO>> GetAllAsync()
         {
-            List<ModelListDTO> modelListDTOs = _mapper.Map<List<ModelListDTO>>(await _unitOfWork.ModelRepository.GetAllAsync(m => !m.IsDeleted));
+            List<ModelListDTO> modelListDTOs = new List<ModelListDTO>();
+            foreach (var item in await _unitOfWork.ModelRepository.GetAllAsync( "Brand"))
+            {
+                var dto = _mapper.Map<ModelListDTO>(item);
+                dto.BrandName = item.Brand.Name;
+                modelListDTOs.Add(dto);
+            }
+            return modelListDTOs;
+        }
+
+        public async Task<List<ModelListDTO>> GetAllForUsersAsync()
+        {
+            List<ModelListDTO> modelListDTOs = new List<ModelListDTO>();
+            foreach (var item in await _unitOfWork.ModelRepository.GetAllForAdminAsync(m => !m.IsDeleted, "Brand"))
+            {
+                var dto = _mapper.Map<ModelListDTO>(item);
+                dto.BrandName = item.Brand.Name;
+                modelListDTOs.Add(dto);
+            }
             return modelListDTOs;
         }
 
@@ -62,8 +80,9 @@ namespace RentalCarFinalProject.Service.Implementations
             {
                 throw new BadRequestException("id is required");
             }
-
-            ModelGetDTO modelGetDTO = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(m => m.Id == id));
+            var model = await _unitOfWork.ModelRepository.GetAsync(m => m.Id == id,"Brand");
+            ModelGetDTO modelGetDTO = _mapper.Map<ModelGetDTO>(model);
+            modelGetDTO.BrandName = model.Brand.Name;
             return modelGetDTO;
         }
 

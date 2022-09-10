@@ -54,7 +54,13 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<SliderListDTO>> GetAllAsync()
         {
-            List<SliderListDTO> sliderListDTOs = _mapper.Map<List<SliderListDTO>>(await _unitOfWork.SliderRepository.GetAllAsync(s => !s.IsDeleted));
+            List<SliderListDTO> sliderListDTOs = _mapper.Map<List<SliderListDTO>>(await _unitOfWork.SliderRepository.GetAllAsync());
+            return sliderListDTOs;
+        }
+
+        public async Task<List<SliderListDTO>> GetAllForUsersAsync()
+        {
+            List<SliderListDTO> sliderListDTOs = _mapper.Map<List<SliderListDTO>>(await _unitOfWork.SliderRepository.GetAllForAdminAsync(s => !s.IsDeleted));
             return sliderListDTOs;
         }
 

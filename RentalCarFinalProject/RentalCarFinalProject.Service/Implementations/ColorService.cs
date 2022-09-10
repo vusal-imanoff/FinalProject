@@ -50,7 +50,13 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<ColorListDTO>> GetAllAsync()
         {
-            List<ColorListDTO> colorListDTOs = _mapper.Map<List<ColorListDTO>>(await _unitOfWork.ColorRepository.GetAllAsync(c => !c.IsDeleted));
+            List<ColorListDTO> colorListDTOs = _mapper.Map<List<ColorListDTO>>(await _unitOfWork.ColorRepository.GetAllAsync());
+            return colorListDTOs;
+        }
+
+        public async Task<List<ColorListDTO>> GetAllForUsersAsync()
+        {
+            List<ColorListDTO> colorListDTOs = _mapper.Map<List<ColorListDTO>>(await _unitOfWork.ColorRepository.GetAllForAdminAsync(c => !c.IsDeleted));
             return colorListDTOs;
         }
 

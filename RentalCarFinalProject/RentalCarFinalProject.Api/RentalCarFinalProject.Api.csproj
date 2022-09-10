@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.27">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,6 +24,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\listImages\" />
     <Folder Include="wwwroot\blogs\" />
+    <Folder Include="wwwroot\companies\" />
+    <Folder Include="wwwroot\categories\" />
     <Folder Include="wwwroot\sliders\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

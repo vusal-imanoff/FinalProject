@@ -1,4 +1,5 @@
 ﻿    using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using RentalCarFinalProject.Core;
 using RentalCarFinalProject.Core.Entities;
 using RentalCarFinalProject.Service.DTOs.CategoryDTOs;
@@ -7,6 +8,7 @@ using RentalCarFinalProject.Service.Extentions;
 using RentalCarFinalProject.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,11 +18,13 @@ namespace RentalCarFinalProject.Service.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _env;
 
-        public CategoryService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CategoryService(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment env)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _env = env;
         }
 
         public async Task DeleteAsync(int? id)
@@ -54,7 +58,13 @@ namespace RentalCarFinalProject.Service.Implementations
 
         public async Task<List<CategoryListDTO>> GetAllAsync()
         {
-            List<CategoryListDTO> categoryListDTOs = _mapper.Map<List<CategoryListDTO>>(await _unitOfWork.CategoryRepository.GetAllAsync(c => !c.IsDeleted));
+            List<CategoryListDTO> categoryListDTOs = _mapper.Map<List<CategoryListDTO>>(await _unitOfWork.CategoryRepository.GetAllAsync());
+            return categoryListDTOs;
+        }
+
+        public async Task<List<CategoryListDTO>> GetAllForUsersAsync()
+        {
+            List<CategoryListDTO> categoryListDTOs = _mapper.Map<List<CategoryListDTO>>(await _unitOfWork.CategoryRepository.GetAllForAdminAsync(c => !c.IsDeleted));
             return categoryListDTOs;
         }
 
@@ -78,6 +88,13 @@ namespace RentalCarFinalProject.Service.Implementations
             }
 
             Category category = _mapper.Map<Category>(categoryPostDTO);
+
+            if (categoryPostDTO.File != null)
+            {
+
+                category.Image = await categoryPostDTO.File.CreateFileAsync(_env, "categories");
+
+            }
 
             await _unitOfWork.CategoryRepository.AddAsync(category);
             await _unitOfWork.CommitAsync();
@@ -103,6 +120,22 @@ namespace RentalCarFinalProject.Service.Implementations
             if (await _unitOfWork.CategoryRepository.IsExistsAsync(c=>c.Id!=categoryPutDTO.Id && c.Name==categoryPutDTO.Name))
             {
                 throw new AlreadyExistsException($"{categoryPutDTO.Name} category already Exists"); 
+            }
+
+
+            if (categoryPutDTO.File != null)
+            {
+                if (category.Image != null)
+                {
+                    string fullpath = Path.Combine(_env.WebRootPath, "categories", category.Image);
+                    if (System.IO.File.Exists(fullpath))
+                    {
+                        System.IO.File.Delete(fullpath);
+                    }
+                }
+
+                category.Image = await categoryPutDTO.File.CreateFileAsync(_env, "categories");
+
             }
 
             category.Name = categoryPutDTO.Name;

@@ -6,6 +6,7 @@ using RentalCarFinalProject.Service.DTOs.BrandDTOs;
 using RentalCarFinalProject.Service.DTOs.CarDTOs;
 using RentalCarFinalProject.Service.DTOs.CategoryDTOs;
 using RentalCarFinalProject.Service.DTOs.ColorDTOs;
+using RentalCarFinalProject.Service.DTOs.CompanyDTOs;
 using RentalCarFinalProject.Service.DTOs.EngineDTOs;
 using RentalCarFinalProject.Service.DTOs.FuelDTOs;
 using RentalCarFinalProject.Service.DTOs.ModelDTOs;
@@ -109,6 +110,12 @@ namespace RentalCarFinalProject.Service.Mappings
                .ForMember(des => des.CreatedAt, src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
             CreateMap<Order, OrderListDTO>();
             CreateMap<Order, OrderGetDTO>();
+            #endregion
+            #region Company
+            CreateMap<CompanyPostDTO, Company>()
+               .ForMember(des => des.CreatedAt, src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
+            CreateMap<Company, CompanyListDTO>();
+            CreateMap<Company, CompanyGetDTO>();
             #endregion
         }
     }

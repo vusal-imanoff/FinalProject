@@ -9,7 +9,7 @@ namespace RentalCarFinalProject.Core.Enums
         Pending = 1,
         Accepted,
         Processing,
-        End,
+        Complected,
         Rejected
     }
 }

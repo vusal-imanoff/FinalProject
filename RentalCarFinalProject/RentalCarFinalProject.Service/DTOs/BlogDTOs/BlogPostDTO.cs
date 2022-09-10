@@ -27,9 +27,9 @@ namespace RentalCarFinalProject.Service.DTOs.BlogDTOs
                     {
                         context.AddFailure("Please Select Correct Image Type. Example Jpeg or Jpg");
                     }
-                    if (x.File.CheckFileSize(200))
+                    if (x.File.CheckFileSize(2000))
                     {
-                        context.AddFailure("Please Select Coorect Image Size. Maximum 50 KB");
+                        context.AddFailure("Please Select Coorect Image Size. Maximum 2 MB");
                     }
                 }
             });

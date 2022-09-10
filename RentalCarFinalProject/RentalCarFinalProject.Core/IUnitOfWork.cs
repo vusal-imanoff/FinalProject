@@ -21,6 +21,8 @@ namespace RentalCarFinalProject.Core
         IBlogRepository BlogRepository { get; }
         ISliderRepository SliderRepository { get; }
         IOrderRepository OrderRepository { get; }
+        ICompanyRepository CompanyRepository { get; }
+        IMessageRepository MessageRepository { get; }
         Task<int> CommitAsync();
         int Commit();
     }

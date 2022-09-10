@@ -38,7 +38,7 @@ namespace RentalCarFinalProject.Service.Implementations
                 return await _jwtManager.GenerateTokenAsync(appUser);
             }
 
-            throw new UnauthorizedException("You do not access to enter");
+            throw new UnauthorizedException("You do not access to enter. You are Member!");
         }
     }
 }

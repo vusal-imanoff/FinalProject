@@ -10,6 +10,7 @@ namespace RentalCarFinalProject.Service.Interfaces
     {
         Task PostAsync(SliderPostDTO sliderPostDTO);
         Task<List<SliderListDTO>> GetAllAsync();
+        Task<List<SliderListDTO>> GetAllForUsersAsync();
         Task<SliderGetDTO> GetByIdAsync(int? id);
         Task PutAsync(int? id, SliderPutDTO sliderPutDTO);
         Task DeleteAsync(int? id);

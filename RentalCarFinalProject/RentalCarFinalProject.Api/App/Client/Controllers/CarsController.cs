@@ -19,7 +19,7 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
         [HttpGet("getcars/{int}")]
         public async Task<IActionResult> GetCarsPageneted(int pageIndex=1)
         {
-            return Ok(await _carService.GetAllPageIndexAsync(pageIndex));
+            return Ok(await _carService.GetAllForUsersAsync(pageIndex));
         }
 
         [HttpGet("getcars")]

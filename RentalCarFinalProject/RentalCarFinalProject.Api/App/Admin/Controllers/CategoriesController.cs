@@ -20,7 +20,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CategoryPostDTO categoryPostDTO)
+        public async Task<IActionResult> Post([FromForm] CategoryPostDTO categoryPostDTO)
         {
             await _categoryService.PostAsync(categoryPostDTO);
             return StatusCode(201);
@@ -40,7 +40,7 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int? id, CategoryPutDTO categoryPutDTO)
+        public async Task<IActionResult> Put(int? id, [FromForm] CategoryPutDTO categoryPutDTO)
         {
             await _categoryService.PutAsync(id, categoryPutDTO);
             return StatusCode(204);

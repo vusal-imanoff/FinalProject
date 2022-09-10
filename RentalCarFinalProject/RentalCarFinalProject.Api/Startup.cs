@@ -37,6 +37,8 @@ namespace RentalCarFinalProject.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -82,9 +84,15 @@ namespace RentalCarFinalProject.Api
                 });
             });
 
-            services.AddControllers().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<BrandPostValidator>());
+            services.AddCors(options => options.AddDefaultPolicy(policy =>
+            policy.WithOrigins("http://localhost:3000", "https://localhost:3001", "https://localhost:3002", "https://localhost:3003").AllowAnyHeader().AllowAnyMethod()));
 
-            services.AddDbContext<AppDbContext>(options=>
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            }).AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<BrandPostValidator>());
+
+            services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
@@ -93,7 +101,7 @@ namespace RentalCarFinalProject.Api
             {
                 options.AddProfile(new MappingProfile());
             });
-          
+
 
             services.AddScoppedService();
 
@@ -105,7 +113,7 @@ namespace RentalCarFinalProject.Api
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
 
-                options.Password.RequireNonAlphanumeric = true; 
+                options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;
@@ -131,7 +139,16 @@ namespace RentalCarFinalProject.Api
                     IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration.GetSection("JWT:SecurityKey").Value))
                 };
             });
-              
+
+            services.AddCors(options => options.AddDefaultPolicy(policy =>
+            policy.AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowed(origin => true)
+            ));
+
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -141,6 +158,10 @@ namespace RentalCarFinalProject.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors();
+
+
 
             app.ExceptionHandler();
 
@@ -155,6 +176,7 @@ namespace RentalCarFinalProject.Api
 
             app.UseStaticFiles();
 
+
             //app.UseSession();
 
             app.UseAuthentication();
@@ -163,6 +185,7 @@ namespace RentalCarFinalProject.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
             });
         }
     }

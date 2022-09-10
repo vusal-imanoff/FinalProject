@@ -20,6 +20,7 @@ namespace RentalCarFinalProject.Core.Entities
         public Nullable<int> ColorId { get; set; }
         public Nullable<int> TransmissionId { get; set; }
         public Nullable<int> YearId { get; set; }
+        public Nullable<int> CompanyId { get; set; }
         public Brand Brand { get; set; }
         public Model Model { get; set; }
         public Category Category { get; set; }
@@ -28,8 +29,7 @@ namespace RentalCarFinalProject.Core.Entities
         public Color Color { get; set; }
         public Transmission Transmission { get; set; }
         public Year Year { get; set; }
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public Company Company { get; set; }
         public List<CarImages> CarImages { get; set; }
         public List<CarTags> CarTags { get; set; }
     }

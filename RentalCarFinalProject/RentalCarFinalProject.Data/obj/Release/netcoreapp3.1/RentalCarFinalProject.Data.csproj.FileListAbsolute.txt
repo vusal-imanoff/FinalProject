@@ -1,0 +1,16 @@
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\bin\Release\netcoreapp3.1\RentalCarFinalProject.Data.deps.json
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\bin\Release\netcoreapp3.1\RentalCarFinalProject.Data.runtimeconfig.json
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\bin\Release\netcoreapp3.1\RentalCarFinalProject.Data.runtimeconfig.dev.json
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\bin\Release\netcoreapp3.1\RentalCarFinalProject.Data.dll
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\bin\Release\netcoreapp3.1\RentalCarFinalProject.Data.pdb
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\bin\Release\netcoreapp3.1\RentalCarFinalProject.Core.dll
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\bin\Release\netcoreapp3.1\RentalCarFinalProject.Core.pdb
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.csproj.AssemblyReference.cache
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.AssemblyInfoInputs.cache
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.AssemblyInfo.cs
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.csproj.CopyComplete
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.dll
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.pdb
+C:\Users\user\Documents\FinalProject\RentalCarFinalProject\RentalCarFinalProject.Data\obj\Release\netcoreapp3.1\RentalCarFinalProject.Data.genruntimeconfig.cache
