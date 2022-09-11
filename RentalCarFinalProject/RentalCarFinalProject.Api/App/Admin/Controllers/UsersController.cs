@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RentalCarFinalProject.Api.App.Admin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
     [Authorize(Roles =("SuperAdmin"))]
     public class UsersController : ControllerBase

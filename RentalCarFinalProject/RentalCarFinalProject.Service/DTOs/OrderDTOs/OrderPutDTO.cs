@@ -11,6 +11,8 @@ namespace RentalCarFinalProject.Service.DTOs.OrderDTOs
         public int Id { get; set; }
         public string AppUserId { get; set; }
         public int CarId { get; set; }
+        public int CompanyId { get; set; }
+
         public double Price { get; set; }
         public bool IsCard { get; set; }
         public string Owner { get; set; }

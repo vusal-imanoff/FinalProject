@@ -16,17 +16,17 @@ namespace RentalCarFinalProject.Api.App.Client.Controllers
             _carService = carService;
         }
 
-        [HttpGet("getcars/{int}")]
-        public async Task<IActionResult> GetCarsPageneted(int pageIndex=1)
-        {
-            return Ok(await _carService.GetAllForUsersAsync(pageIndex));
-        }
-
         [HttpGet("getcars")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetCard()
         {
             return Ok(await _carService.GetAllAsync());
         }
+
+        //[HttpGet("getcars")]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    return Ok(await _carService.GetAllAsync());
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(int? id)

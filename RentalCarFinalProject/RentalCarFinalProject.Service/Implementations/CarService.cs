@@ -56,20 +56,44 @@ namespace RentalCarFinalProject.Service.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<List<CarListDTO>> GetAllAsync()
+        public async Task<List<CarGetDTO>> GetAllAsync()
         {
-            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllAsync());
-            return carListDTOs;
+            
+            List<CarGetDTO> carlistDTO = new List<CarGetDTO>();
+            foreach (var car in await _unitOfWork.CarRepository.GetAllForAdminAsync(c => !c.IsDeleted, "Brand", "Model", "Fuel", "Year", "Transmission", "Category", "Engine", "Color", "Company"))
+            {
+                //var dto = _mapper.Map<CarGetDTO>(car);
+                var dto = new CarGetDTO();
+                dto.Id = car.Id;
+                dto.Plate=car.Plate;
+                dto.BrandId = car.Brand.Id;
+                dto.CategoryId = car.Category.Id;
+                dto.Description = car.Description;
+                dto.TransmissionName = car.Transmission.Name;
+                dto.Price = car.Price;
+                dto.DiscountPrice = car.DiscountPrice;
+                dto.Image = car.Image;
+                dto.IsFree=car.IsFree;
+                dto.BrandName = car.Brand.Name;
+                dto.ColorName = car.Color.Name;
+                dto.ModelName = car.Model.Name;
+                dto.EngineName = car.Engine.Name;
+                dto.Year = car.Year.ProductionYear;
+                dto.FuelName = car.Fuel.Name;
+                dto.CategoryName = car.Category.Name;
+                dto.CompanyName = car.Company.Name;
+                carlistDTO.Add(dto);
+            }
+            return carlistDTO;
         }
 
 
-        public async Task<PagenetedListDTO<CarListDTO>> GetAllForUsersAsync(int pageIndex)
+        public async Task<List<CarListDTO>> GetAllForAdminAsync(int pageIndex)
         {
-            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllForAdminAsync(c => !c.IsDeleted,"Brand",
-                "Model","Fuel","Year","Transmission","Category","Engine","Color","Company" , "CarImages", "CarTags"));
-            PagenetedListDTO<CarListDTO> pagenetedListDTO = new PagenetedListDTO<CarListDTO>(carListDTOs, pageIndex, 9);
+            List<CarListDTO> carListDTOs = _mapper.Map<List<CarListDTO>>(await _unitOfWork.CarRepository.GetAllAsync());
 
-            return pagenetedListDTO;
+
+            return carListDTOs;
         }
 
         public async Task<CarGetDTO> GetByIdAsync(int? id)
@@ -80,16 +104,25 @@ namespace RentalCarFinalProject.Service.Implementations
             }
             var car = await _unitOfWork.CarRepository.GetAsync(c => c.Id == id, "Brand",
                 "Model", "Fuel", "Year", "Transmission", "Category", "Engine", "Color", "Company", "CarImages", "CarTags");
-            CarGetDTO carGetDTO = _mapper.Map<CarGetDTO>(car);
-            carGetDTO.ColorName = car.Color.Name;
-            carGetDTO.BrandName = car.Brand.Name;
-            carGetDTO.ModelName = car.Model.Name;
-            carGetDTO.FuelName = car.Fuel.Name;
-            carGetDTO.EngineName = car.Engine.Name;
-            carGetDTO.TransmissionName = car.Transmission.Name;
-            carGetDTO.Year = car.Year.ProductionYear;
-            carGetDTO.CategoryName = car.Category.Name;
-            carGetDTO.CompanyName = car.Company.Name;
+            var dto = new CarGetDTO();
+            dto.Id = car.Id;
+            dto.BrandId = car.Brand.Id;
+            dto.CategoryId = car.Category.Id;
+            dto.Plate = car.Plate;
+            dto.Description = car.Description;
+            dto.TransmissionName = car.Transmission.Name;
+            dto.Price = car.Price;
+            dto.DiscountPrice = car.DiscountPrice;
+            dto.Image = car.Image;
+            dto.IsFree = car.IsFree;
+            dto.BrandName = car.Brand.Name;
+            dto.ColorName = car.Color.Name;
+            dto.ModelName = car.Model.Name;
+            dto.EngineName = car.Engine.Name;
+            dto.Year = car.Year.ProductionYear;
+            dto.FuelName = car.Fuel.Name;
+            dto.CategoryName = car.Category.Name;
+            dto.CompanyName = car.Company.Name;
             //List<CarImages> carImages = new List<CarImages>();
             //foreach (var images in car.CarImages)
             //{
@@ -100,7 +133,7 @@ namespace RentalCarFinalProject.Service.Implementations
             //{
             //    carTags.Add(tags);
             //}
-            return carGetDTO;
+            return dto;
         }
 
         public async Task PostAsync(CarPostDTO carPostDTO)

@@ -8,6 +8,9 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
     public class CarGetDTO
     {
         public int Id { get; set; }
+        public int BrandId { get; set; }
+        public int CategoryId { get; set; }
+
         public string Plate { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }

@@ -13,9 +13,12 @@ namespace RentalCarFinalProject.Service.DTOs.AppUserDTOs
         public string Surname { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public int CompanyId { get; set; }
         public string Role { get; set; }
+         public string FinCode { get; set; }
+        public string SeriaNumber { get; set; }
+        public string DriverLicanse { get; set; }
+    
     }
 
     public class UpdateDTOValidator: AbstractValidator<UpdateDTO>
@@ -26,10 +29,7 @@ namespace RentalCarFinalProject.Service.DTOs.AppUserDTOs
             RuleFor(a => a.Name).NotEmpty().MaximumLength(40);
             RuleFor(a => a.Surname).NotEmpty().MaximumLength(40);
             RuleFor(a => a.Age).NotEmpty();
-            RuleFor(a => a.Password).NotEmpty().MinimumLength(8);
             RuleFor(a => a.Email).EmailAddress().NotEmpty();
-            RuleFor(a => a.CompanyId).NotEmpty();
-            RuleFor(a => a.Role).MaximumLength(255).NotEmpty();
         }
     }
 }

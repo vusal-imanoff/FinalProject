@@ -79,6 +79,7 @@ namespace RentalCarFinalProject.Service.Mappings
                 .ForMember(des=>des.CreatedAt,src => src.MapFrom(s => DateTime.UtcNow.AddHours(4)));
             CreateMap<Car, CarListDTO>();
             CreateMap<Car, CarGetDTO>();
+            CreateMap<CarGetDTO, Car>();
             #endregion
             #region AppUser
             CreateMap<RegisterDTO, AppUser>();
