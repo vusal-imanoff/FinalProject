@@ -8,5 +8,7 @@ namespace RentalCarFinalProject.Service.DTOs.YearDTOs
     {
         public int Id { get; set; }
         public int ProductionYear { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
 }

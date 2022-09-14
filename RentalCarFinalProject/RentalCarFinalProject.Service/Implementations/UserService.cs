@@ -63,6 +63,18 @@ namespace RentalCarFinalProject.Service.Implementations
             return userListDTOs;
         }
 
+        public async Task<UserGetDTO> GetById(string id)
+        {
+            AppUser appuser = await _userManager.FindByIdAsync(id);
+            if (appuser==null)
+            {
+                throw new NotFoundException("appuser not found");
+            }
+
+            UserGetDTO userGetDTO = _mapper.Map<UserGetDTO>(appuser);
+            return userGetDTO;
+        }
+
         public async Task RegisterAsync(UserRegisterDTO userRegisterDTO)
         {
             AppUser appUser = _mapper.Map<AppUser>(userRegisterDTO);
@@ -83,6 +95,32 @@ namespace RentalCarFinalProject.Service.Implementations
             if (!identityResult.Succeeded)
             {
                 throw new BadRequestException(identityResult.Errors.ToString());
+            }
+        }
+
+        public async Task UpdateAsync(UserUpdateDTO userUpdateDTO)
+        {
+            AppUser appUser = await _userManager.FindByIdAsync(userUpdateDTO.Id);
+            if (appUser == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+
+            appUser.Name=userUpdateDTO.Name;
+            appUser.SurName=userUpdateDTO.Surname;
+            appUser.Age=userUpdateDTO.Age;
+            appUser.Email=userUpdateDTO.Email;
+            appUser.UserName=userUpdateDTO.Username;
+
+
+            IdentityResult identity = await _userManager.UpdateAsync(appUser);
+
+            if (!identity.Succeeded)
+            {
+                foreach (var item in identity.Errors)
+                {
+                    throw new BadRequestException(item.Description.ToString());
+                }
             }
         }
     }

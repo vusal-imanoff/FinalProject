@@ -68,6 +68,7 @@ namespace RentalCarFinalProject.Service.Implementations
                 dto.Plate=car.Plate;
                 dto.BrandId = car.Brand.Id;
                 dto.CategoryId = car.Category.Id;
+                dto.CompanyId = car.Company.Id;
                 dto.Description = car.Description;
                 dto.TransmissionName = car.Transmission.Name;
                 dto.Price = car.Price;
@@ -108,6 +109,7 @@ namespace RentalCarFinalProject.Service.Implementations
             dto.Id = car.Id;
             dto.BrandId = car.Brand.Id;
             dto.CategoryId = car.Category.Id;
+            dto.CompanyId = car.Company.Id;
             dto.Plate = car.Plate;
             dto.Description = car.Description;
             dto.TransmissionName = car.Transmission.Name;

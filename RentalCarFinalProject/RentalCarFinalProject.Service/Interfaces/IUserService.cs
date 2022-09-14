@@ -9,8 +9,9 @@ namespace RentalCarFinalProject.Service.Interfaces
     public interface IUserService
     {
         Task RegisterAsync(UserRegisterDTO userRegisterDTO);
+        Task UpdateAsync(UserUpdateDTO userUpdateDTO);
         Task ActiveAsync(string id);
-        //Task ResetPasswordAsync(string id, ResetPasswordDTO resetPasswordDTO);
         Task<List<UserListDTO>> GetAll();
+        Task<UserGetDTO> GetById(string id);
     }
 }

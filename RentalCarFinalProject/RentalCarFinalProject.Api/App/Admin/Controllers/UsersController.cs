@@ -19,10 +19,16 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
             _userService = userService;
         }
 
-        [HttpGet("getusers")]
-        public async Task<IActionResult> GetUsers()
+        [HttpGet("getalluser")]
+        public async Task<IActionResult> GetAllUsers()
         {
             return Ok(await _userService.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUsers(string id)
+        {
+            return Ok(await _userService.GetById(id));
         }
 
         [HttpPost("createusers")]
@@ -32,10 +38,17 @@ namespace RentalCarFinalProject.Api.App.Admin.Controllers
             return StatusCode(201);
         }
 
-        [HttpPost("{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> IsActive(string id)
         {
             await _userService.ActiveAsync(id);
+            return NoContent();
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> Put(UserUpdateDTO userUpdateDTO)
+        {
+            await _userService.UpdateAsync(userUpdateDTO);
             return NoContent();
         }
     }

@@ -105,6 +105,7 @@ namespace RentalCarFinalProject.Service.Mappings
             #region User
             CreateMap<UserRegisterDTO, AppUser>();
             CreateMap<AppUser, UserListDTO>();
+            CreateMap<AppUser, UserGetDTO>();
             #endregion
             #region Order
             CreateMap<OrderPostDTO, Order>()

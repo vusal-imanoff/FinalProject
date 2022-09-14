@@ -7,7 +7,9 @@ namespace RentalCarFinalProject.Service.DTOs.CarDTOs
 {
     public class CarListDTO
     {
+        public bool IsDeleted { get; set; }
         public int BrandId { get; set; }
+        public int CompanyId { get; set; }
         public int CategoryId { get; set; }
         public string Plate { get; set; }
         public string Description { get; set; }

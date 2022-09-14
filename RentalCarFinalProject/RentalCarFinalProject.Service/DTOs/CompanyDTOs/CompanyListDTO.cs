@@ -13,6 +13,8 @@ namespace RentalCarFinalProject.Service.DTOs.CompanyDTOs
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string WorkTime { get; set; }
+        public bool IsDeleted { get; set; }
+
 
     }
 }

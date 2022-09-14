@@ -16,5 +16,7 @@ namespace RentalCarFinalProject.Service.DTOs.CompanyDTOs
         public string WorkTime { get; set; }
         public bool CompanyStatus { get; set; }
         public List<Car> Cars { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
 }

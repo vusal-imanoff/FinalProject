@@ -13,8 +13,6 @@ namespace RentalCarFinalProject.Service.DTOs.AppUserDTOs
         public string Surname { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }
-        public int CompanyId { get; set; }
-        public string Role { get; set; }
          public string FinCode { get; set; }
         public string SeriaNumber { get; set; }
         public string DriverLicanse { get; set; }

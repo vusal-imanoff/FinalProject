@@ -10,5 +10,7 @@ namespace RentalCarFinalProject.Service.DTOs.SliderDTOs
         public string MainTitle { get; set; }
         public string SubTitle { get; set; }
         public string Image { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
 }
